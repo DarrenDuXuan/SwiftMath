@@ -90,9 +90,249 @@ class SwordFingerOffer: NSObject {
      用返回一个整数列表来代替打印
      n 为正整数
      */
-    // MARK: - 链表中倒数第k个节点
+    // MARK: - 打印从1到最大的n位数
     func printNumbers(_ n: Int) -> [Int] {
+        var list = [Int]()
+        let max = powf(10, Float(n))
+        var i = 1
         
-        return []
+        while i < Int(max) {
+            list.append(i)
+            i+=1
+        }
+        
+        return list
+    }
+    
+    /*
+     面试题55 - I. 二叉树的深度
+     输入一棵二叉树的根节点，求该树的深度。从根节点到叶节点依次经过的节点（含根、叶节点）形成树的一条路径，最长路径的长度为树的深度。
+
+     例如：
+
+     给定二叉树 [3,9,20,null,null,15,7]，
+
+         3
+        / \
+       9  20
+         /  \
+        15   7
+     返回它的最大深度 3 。
+
+      
+
+     提示：
+
+     节点总数 <= 10000
+     */
+    // MARK: - 二叉树的深度 BFS
+    func maxDepth(_ root: TreeNode?) -> Int {
+        if (root == nil) {
+            return 0
+        }
+        
+        var list = [TreeNode]()
+        list.append(root!)
+        var deep = 0
+        
+        while !list.isEmpty {
+            deep += 1
+            let count = list.count
+            for _ in 0..<count {
+                let removeNode = list.removeFirst()
+                
+                if let left = removeNode.left {
+                    list.append(left)
+                }
+                
+                if let right = removeNode.right {
+                    list.append(right)
+                }
+            }
+            
+        }
+        
+        return deep
+    }
+    
+    // MARK: - 二叉树的深度 DFS
+    var deepNum = 0
+    func maxDeep2(_ root: TreeNode?) -> Int {
+        if (root == nil) {
+            return 0
+        }
+        
+        findDeep(root, 0)
+        return deepNum
+    }
+    
+    private func findDeep(_ root: TreeNode?, _ level: Int) {
+        if (root == nil) {
+            return
+        }
+        
+        if level > deepNum {
+            deepNum = level
+        }
+        
+        findDeep(root?.left, level + 1)
+        findDeep(root?.right, level + 1)
+    }
+    
+    /*
+     面试题27. 二叉树的镜像
+     请完成一个函数，输入一个二叉树，该函数输出它的镜像。
+
+     例如输入：
+
+          4
+        /   \
+       2     7
+      / \   / \
+     1   3 6   9
+     镜像输出：
+
+          4
+        /   \
+       7     2
+      / \   / \
+     9   6 3   1
+
+      
+
+     示例 1：
+
+     输入：root = [4,2,7,1,3,6,9]
+     输出：[4,7,2,9,6,3,1]
+     */
+    
+    // MARK: - 二叉树的镜像
+    func mirrorTree(_ root: TreeNode?) -> TreeNode? {
+        if (root == nil) {
+            return nil
+        }
+        
+        // 前序
+        let tRoot = root
+        let left = tRoot?.left
+        tRoot?.left = tRoot?.right
+        tRoot?.right = left
+        let _ = mirrorTree(tRoot?.left)
+        let _ = mirrorTree(tRoot?.right)
+        return tRoot
+        
+        // 中序
+//        let _ = mirrorTree(root?.left)
+//        let right = root?.right
+//        root?.right = root?.left
+//        root?.left = right
+//        let _ = mirrorTree(mirrorTree(root?.left))
+//        return root
+        
+        
+        // 后序
+        
+//        let left = mirrorTree(root?.left)
+//        let right = mirrorTree(root?.right)
+//        root?.left = right
+//        root?.right = left
+//        return root
+    }
+    
+    /*
+     面试题05. 替换空格
+     请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
+
+      
+
+     示例 1：
+
+     输入：s = "We are happy."
+     输出："We%20are%20happy."
+     */
+    
+    // MARK: - 替换空格
+    func replaceSpace(_ s: String) -> String {
+        // 1. 库函数
+        var vs = s
+        vs = vs.replacingOccurrences(of: " ", with: "%20")
+        return vs
+        
+        // 2. 额外空间
+//        var str : String! = ""
+//        for c in s {
+//            if c == " " {
+//                str.append("%20")
+//            } else {
+//                str.append(c)
+//            }
+//        }
+//        return str
+    }
+    
+    /*
+     面试题06. 从尾到头打印链表
+     输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
+
+      
+
+     示例 1：
+
+     输入：head = [1,3,2]
+     输出：[2,3,1]
+     */
+    // MARK: - 从尾到头打印链表
+    func reversePrint(_ head: ListNode?) -> [Int] {
+        
+        var node = head
+        var list = [Int]()
+        while node != nil {
+            if (list.isEmpty) {
+                list.append(node!.val)
+            } else {
+                list.insert(node!.val, at: 0)
+            }
+            node = node?.next
+        }
+        
+        return list
+    }
+    
+    /*
+     面试题24. 反转链表
+     定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
+
+      
+
+     示例:
+
+     输入: 1->2->3->4->5->NULL
+     输出: 5->4->3->2->1->NULL
+     */
+    //MARK: - 反转链表
+    func reverseList(_ head: ListNode?) -> ListNode? {
+//        var tempNode = head
+//        var node : ListNode!
+//        while tempNode != nil {
+//            let temp = tempNode?.next
+//            tempNode?.next = node
+//            node = tempNode
+//            tempNode = temp
+//        }
+//        return node
+        
+        
+        return revrseList1(nil, head)
+    }
+    
+    func revrseList1(_ preNode: ListNode?, _ curNode: ListNode?) -> ListNode? {
+        if (curNode == nil) {
+            return preNode
+        }
+        
+        let next = curNode?.next
+        curNode?.next = preNode
+        
+        return revrseList1(curNode, next)
     }
 }
