@@ -580,20 +580,24 @@ class SwordFingerOffer: NSObject {
      */
     //MARK: - 和为s的连续正数序列
     func findContinuousSequence(_ target: Int) -> [[Int]] {
-        var l = 1, sum = 0
+        // 暴力滑动窗口解决
+        var left = 1, sum = 0
         var list = [[Int]]()
-        for r in 1..<target {
-            sum += r
+        for right in 1..<target {
+            sum += right
+
             while sum > target {
-                sum -= l
-                l += 1
+                // 大于 target
+                // 左窗口左移一位直到 sum <= target
+                sum -= left
+                left += 1
             }
             
             if (sum == target) {
-                let count = r - l + 1
+                let count = right - left + 1
                 var tempList = [Int]()
-                for n in 0..<count {
-                    tempList.append(l+n)
+                for i in 0..<count {
+                    tempList.append(left+i)
                 }
                 list.append(tempList)
             }
