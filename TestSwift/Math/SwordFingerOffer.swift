@@ -580,13 +580,13 @@ class SwordFingerOffer: NSObject {
      */
     //MARK: - 和为s的连续正数序列
     func findContinuousSequence(_ target: Int) -> [[Int]] {
-        var l = 1, r = 1, sum = 0
+        var l = 1, sum = 0
         var list = [[Int]]()
-        for i in 1..<target {
-            sum += i
+        for r in 1..<target {
+            sum += r
             while sum > target {
-                l += 1
                 sum -= l
+                l += 1
             }
             
             if (sum == target) {
