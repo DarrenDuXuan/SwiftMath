@@ -87,24 +87,25 @@ class List: NSObject {
         
         // 2. 正常
         var node : ListNode! = ListNode(0)
+        var head : ListNode! = node
         var ll1 = l1
         var ll2 = l2
         while ll1 != nil && ll2 != nil {
             if (ll1!.val < ll2!.val) {
-                node.next = ll1
-                node = node.next
+                head.next = ll1
+                head = head.next
                 ll1 = ll1?.next
             } else {
-                node.next = ll2
-                node = node.next
+                head.next = ll2
+                head = head.next
                 ll2 = ll2?.next
             }
         }
         
         if (ll1 == nil) {
-            node.next = ll2
+            head.next = ll2
         } else {
-            node.next = ll1
+            head.next = ll1
         }
         
         return node!.next

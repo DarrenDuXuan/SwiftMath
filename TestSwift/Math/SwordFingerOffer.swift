@@ -311,6 +311,7 @@ class SwordFingerOffer: NSObject {
      */
     //MARK: - 反转链表
     func reverseList(_ head: ListNode?) -> ListNode? {
+        // 1. 常规反转
 //        var tempNode = head
 //        var node : ListNode!
 //        while tempNode != nil {
@@ -321,7 +322,7 @@ class SwordFingerOffer: NSObject {
 //        }
 //        return node
         
-        
+        // 递归反转
         return revrseList1(nil, head)
     }
     
@@ -334,5 +335,269 @@ class SwordFingerOffer: NSObject {
         curNode?.next = preNode
         
         return revrseList1(curNode, next)
+    }
+    
+    /*
+     面试题25. 合并两个排序的链表
+     输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+
+     示例1：
+
+     输入：1->2->4, 1->3->4
+     输出：1->1->2->3->4->4
+     */
+    // MARK: - 合并两个排序的链表
+    func mergeTwoLists(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+//        if (l1 == nil) {
+//            return l2
+//        }
+//        
+//        if (l2 == nil) {
+//            return l1
+//        }
+//        
+//        if (l1!.val <= l2!.val) {
+//            l1?.next = mergeTwoLists(l1?.next, l2)
+//            return l1
+//        } else {
+//            l2?.next = mergeTwoLists(l1, l2?.next)
+//            return l2
+//        }
+        
+        // 2. 正常
+        let node : ListNode! = ListNode(0)
+        var head : ListNode! = node
+        var ll1 = l1
+        var ll2 = l2
+        while ll1 != nil && ll2 != nil {
+            if (ll1!.val < ll2!.val) {
+                head.next = ll1
+                head = head.next
+                ll1 = ll1?.next
+            } else {
+                head.next = ll2
+                head = head.next
+                ll2 = ll2?.next
+            }
+        }
+        
+        if (ll1 == nil) {
+            head.next = ll2
+        } else {
+            head.next = ll1
+        }
+        
+        return node!.next
+    }
+    
+    /*
+     面试题15. 二进制中1的个数
+     请实现一个函数，输入一个整数，输出该数二进制表示中 1 的个数。例如，把 9 表示成二进制是 1001，有 2 位是 1。因此，如果输入 9，则该函数输出 2。
+
+     示例 1：
+
+     输入：00000000000000000000000000001011
+     输出：3
+     解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 '1'。
+     示例 2：
+
+     输入：00000000000000000000000010000000
+     输出：1
+     解释：输入的二进制串 00000000000000000000000010000000 中，共有一位为 '1'。
+     示例 3：
+
+     输入：11111111111111111111111111111101
+     输出：31
+     解释：输入的二进制串 11111111111111111111111111111101 中，共有 31 位为 '1'。
+     */
+    
+    // MARK: - 二进制中1的个数
+    func hammingWeight(_ n: Int) -> Int {
+        /*
+         任何整数于小于这个整数相&，最有一位1会变0，用来判断有多少位1。
+         */
+        var num = 0
+        var tn = n
+        while tn > 0 {
+            num += 1
+            tn &= tn
+        }
+        return num
+    }
+    
+    /*
+     面试题54. 二叉搜索树的第k大节点
+     给定一棵二叉搜索树，请找出其中第k大的节点。
+
+      
+
+     示例 1:
+
+     输入: root = [3,1,4,null,2], k = 1
+        3
+       / \
+      1   4
+       \
+        2
+     输出: 4
+     示例 2:
+
+     输入: root = [5,3,6,2,4,null,null,1], k = 3
+            5
+           / \
+          3   6
+         / \
+        2   4
+       /
+      1
+     输出: 4
+     */
+    // MARK: - 二叉搜索树的第k大节点
+    func kthLargest(_ root: TreeNode?, _ k: Int) -> Int {
+        
+//        let _ = kthLargestHelp(root, k)
+//
+//        return res
+        
+        var list : [Int] = [Int]()
+        var tNum = 0
+        var tRes = 0
+        var nodeList: [TreeNode] = [TreeNode]()
+        var node = root
+        while !nodeList.isEmpty || node != nil {
+            while node != nil {
+                nodeList.append(node!)
+                node = node?.right
+            }
+            
+            if (!nodeList.isEmpty) {
+                node = nodeList.removeLast()
+                tNum += 1
+                if (tNum == k) {
+                    tRes = node!.val
+                    break
+                }
+                list.append(node!.val)
+                node = node?.left
+            }
+        }
+
+        return tRes
+//        return list[list.count - k]
+    }
+    
+    var num = 0
+    var res = 0
+    var nList : [Int] = [Int]()
+    func kthLargestHelp(_ root: TreeNode?, _ k: Int) -> Int {
+        if (root == nil) {
+            return 0
+        }
+        
+        let _ = kthLargestHelp(root?.left, k)
+        
+        num += 1
+        if num == k {
+            res = root!.val
+            return 0
+        }
+//        nList.append(root!.val)
+        
+        let  _ = kthLargestHelp(root?.right, k)
+        
+        return 0
+    }
+    
+    /*
+     面试题32 - II. 从上到下打印二叉树 II
+     从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。
+
+      
+
+     例如:
+     给定二叉树: [3,9,20,null,null,15,7],
+
+         3
+        / \
+       9  20
+         /  \
+        15   7
+     返回其层次遍历结果：
+
+     [
+       [3],
+       [9,20],
+       [15,7]
+     ]
+     */
+    //MARK: - 从上到下打印二叉树 II
+    func levelOrder(_ root: TreeNode?) -> [[Int]] {
+        if (root == nil) {
+            return []
+        }
+        
+        var list = [[Int]]()
+        var nodeList = [TreeNode]()
+        nodeList.append(root!)
+        while !nodeList.isEmpty {
+            var tempList = [Int]()
+            let count = nodeList.count
+            for _ in 0..<count {
+                let node = nodeList.removeFirst()
+                
+                tempList.append(node.val)
+                
+                if let left = node.left {
+                    nodeList.append(left)
+                }
+                
+                if let right = node.right {
+                    nodeList.append(right)
+                }
+            }
+            list.append(tempList)
+        }
+        
+        return list
+    }
+    
+    /*
+     面试题57 - II. 和为s的连续正数序列
+     输入一个正整数 target ，输出所有和为 target 的连续正整数序列（至少含有两个数）。
+
+     序列内的数字由小到大排列，不同序列按照首个数字从小到大排列。
+
+      
+
+     示例 1：
+
+     输入：target = 9
+     输出：[[2,3,4],[4,5]]
+     示例 2：
+
+     输入：target = 15
+     输出：[[1,2,3,4,5],[4,5,6],[7,8]]
+     */
+    //MARK: - 和为s的连续正数序列
+    func findContinuousSequence(_ target: Int) -> [[Int]] {
+        var l = 1, r = 1, sum = 0
+        var list = [[Int]]()
+        for i in 1..<target {
+            sum += i
+            while sum > target {
+                l += 1
+                sum -= l
+            }
+            
+            if (sum == target) {
+                let count = r - l + 1
+                var tempList = [Int]()
+                for n in 0..<count {
+                    tempList.append(l+n)
+                }
+                list.append(tempList)
+            }
+        }
+        return list
     }
 }

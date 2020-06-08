@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         var heapList = shellList
         ArraySort.init().heapSort(&heapList)
         
-        
+        SwordFingerOffer.init().findContinuousSequence(9)
     }
 
 
