@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         Math.init().longestConsecutive([100, 4, 200, 1, 3, 2])
         Math.init().combinationSum([2,3,6,7], 7)
         Math.init().hammingDistance(1, 4)
+        Math.init().numRepeatCount([1,1,2,4,3,4,1])
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)

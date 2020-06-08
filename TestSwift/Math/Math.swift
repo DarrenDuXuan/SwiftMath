@@ -537,6 +537,30 @@ class Math: NSObject {
         return count
     }
     
-    // MARK: - 剑指Offer
+    /*
+     输入：一个大文件，每一行存储了一个整数
+     输出：重复数的总次数
+     示例：1，1，2，4，3，4，1；其中1重复了2次，4重复了1次，则输出为3
+     */
+    // MARK: - 重复数的总次数
+    func numRepeatCount(_ numLists: [Int]) -> Int {
+        if (numLists.isEmpty) {
+            return 0
+        }
+        
+        var hash = [Int:Int]()
+        var count = 0
+        
+        for i in numLists {
+            if hash[i] != nil {
+                count += 1
+                hash[i] = count
+            } else {
+                hash[i] = 1
+            }
+        }
+        
+        return count
+    }
     
 }
