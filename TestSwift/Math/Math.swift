@@ -189,7 +189,7 @@ class Math: NSObject {
                     if (stack.count() == 0 || stack.top() != i.lowercased()) {
                         return false
                     }
-                    stack.pop()
+                    let _ = stack.pop()
                     break
             }
         }

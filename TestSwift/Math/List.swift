@@ -86,7 +86,7 @@ class List: NSObject {
 //        }
         
         // 2. 正常
-        var node : ListNode! = ListNode(0)
+        let node : ListNode! = ListNode(0)
         var head : ListNode! = node
         var ll1 = l1
         var ll2 = l2

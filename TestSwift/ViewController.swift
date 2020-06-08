@@ -16,27 +16,27 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        Math.findDisappearedNumbers([4,3,2,7,8,2,3,1,9,11])
+        let _ = Math.findDisappearedNumbers([4,3,2,7,8,2,3,1,9,11])
         
         let head = ListNode.init(1)
         let next = ListNode.init(2)
         head.next = next
-        List.init().isPalindrome(head)
+        let _ = List.init().isPalindrome(head)
         
-        Math.init().isValid("()")
-        Math.init().findUnsortedSubarray([2,6,4,8,10,9,15])
-        Math.init().sumNums(3)
-        Math.init().subsets([3, 2, 1])
-        Math.init().productExceptSelf([1,2,3,4])
-        Math.init().countBits(4)
-        Math.init().spiralOrder([[2,3,4],
-                                 [5,6,7],
-                                 [8,9,10],
-                                 [11,12,13]])
-        Math.init().longestConsecutive([100, 4, 200, 1, 3, 2])
-        Math.init().combinationSum([2,3,6,7], 7)
-        Math.init().hammingDistance(1, 4)
-        Math.init().numRepeatCount([1,1,2,4,3,4,1])
+        let _ = Math.init().isValid("()")
+        let _ = Math.init().findUnsortedSubarray([2,6,4,8,10,9,15])
+        let _ = Math.init().sumNums(3)
+        let _ = Math.init().subsets([3, 2, 1])
+        let _ = Math.init().productExceptSelf([1,2,3,4])
+        let _ = Math.init().countBits(4)
+        let _ = Math.init().spiralOrder([[2,3,4],
+                                         [5,6,7],
+                                         [8,9,10],
+                                         [11,12,13]])
+        let _ = Math.init().longestConsecutive([100, 4, 200, 1, 3, 2])
+        let _ = Math.init().combinationSum([2,3,6,7], 7)
+        let _ = Math.init().hammingDistance(1, 4)
+        let _ = Math.init().numRepeatCount([1,1,2,4,3,4,1])
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)
@@ -49,7 +49,10 @@ class ViewController: UIViewController {
         var heapList = shellList
         ArraySort.init().heapSort(&heapList)
         
-        SwordFingerOffer.init().findContinuousSequence(9)
+        let _ = SwordFingerOffer.init().findContinuousSequence(9)
+        
+        let _ = Search.BinarySearchRecursive([1, 10, 100, 1000], 9, 0, 3)
+        let _ = Search.BinarySearchNormalHasRepeatNum([1, 10, 10, 100, 1000], 10)
     }
 
 

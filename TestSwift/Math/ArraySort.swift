@@ -25,8 +25,8 @@ class ArraySort: NSObject {
         
         let i = partition(&list, first, last);
         
-        quickSortPrivate(&list, first, i-1)
-        quickSortPrivate(&list, i+1, last)
+        let _ = quickSortPrivate(&list, first, i-1)
+        let _ = quickSortPrivate(&list, i+1, last)
         return list
     }
     
