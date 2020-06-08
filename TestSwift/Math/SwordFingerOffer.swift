@@ -242,9 +242,6 @@ class SwordFingerOffer: NSObject {
     /*
      面试题05. 替换空格
      请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
-
-      
-
      示例 1：
 
      输入：s = "We are happy."
@@ -301,9 +298,6 @@ class SwordFingerOffer: NSObject {
     /*
      面试题24. 反转链表
      定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
-
-      
-
      示例:
 
      输入: 1->2->3->4->5->NULL
@@ -428,9 +422,6 @@ class SwordFingerOffer: NSObject {
     /*
      面试题54. 二叉搜索树的第k大节点
      给定一棵二叉搜索树，请找出其中第k大的节点。
-
-      
-
      示例 1:
 
      输入: root = [3,1,4,null,2], k = 1

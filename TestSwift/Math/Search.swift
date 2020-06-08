@@ -117,5 +117,32 @@ class Search: NSObject {
      插值查找
      */
     //MARK: - 插值查找
-    
+    class func insertSearch(_ list: [Int], _ value: Int) -> Int {
+        if (list.isEmpty) {
+            return -1
+        }
+        
+        var low = 0
+        var hight = list.count - 1
+        var mid = 0
+        while low <= hight {
+            // 二分查找的基础上，使 mid 更靠近 value。
+            let percent = (value - list[low]) / (list[hight] - list[low])
+            mid = low + (low - hight) * percent
+            if list[mid] == value {
+                return mid
+            }
+            
+            if list[mid] < value {
+                low = mid + 1
+            }
+            
+            if list[mid] > value {
+                hight = mid - 1
+            }
+        }
+        
+        
+        return 0
+    }
 }
