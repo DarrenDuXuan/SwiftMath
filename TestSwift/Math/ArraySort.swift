@@ -34,14 +34,14 @@ class ArraySort: NSObject {
         
         var tFirst = first
         for i in first...last-1 {
-            if (list[i] < sign) {
+            let cur = list[i]
+            if (cur < sign) {
                 list.swapAt(tFirst, i)
                 tFirst+=1
             }
         }
         
-        list[last] = list[tFirst]
-        list[tFirst] = sign
+        list.swapAt(last, tFirst)
         
         return tFirst
     }

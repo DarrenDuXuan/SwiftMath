@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7AE248DF-9B28-43B9-AEBB-4F4CF514408B"
+            uuid = "7A168B09-3521-47A5-A04F-44BC82D87622"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TestSwift/ViewController.swift"
+            filePath = "TestSwift/Math/ArraySort.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "partition(_:_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

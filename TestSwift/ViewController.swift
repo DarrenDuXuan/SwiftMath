@@ -56,7 +56,5 @@ class ViewController: UIViewController {
         let _ = Search.BinarySearchRecursive([1, 10, 100, 1000], 9, 0, 3)
         let _ = Search.BinarySearchNormalHasRepeatNum([1, 10, 10, 100, 1000], 10)
     }
-
-
 }
 
