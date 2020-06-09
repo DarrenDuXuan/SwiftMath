@@ -48,6 +48,8 @@ class ViewController: UIViewController {
         ArraySort.init().shellSort(&shellList)
         var heapList = shellList
         ArraySort.init().heapSort(&heapList)
+        var countintSort = shellList
+        ArraySort.init().countSort(&countintSort)
         
         let _ = SwordFingerOffer.init().findContinuousSequence(9)
         

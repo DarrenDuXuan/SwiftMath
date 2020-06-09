@@ -12,7 +12,6 @@ class ArraySort: NSObject {
     /*
      快排
      */
-    
     func quickSort(_ list: [Int]) -> [Int] {
         var array = list
         return quickSortPrivate(&array, 0, array.count - 1)
@@ -51,14 +50,14 @@ class ArraySort: NSObject {
      冒泡
      */
     func mpSrort(_ list: inout [Int]) {
-        for (index, _) in list.enumerated() {
-            for j in 0..<list.count - 1 - index {
+        let count = list.count
+        for index in 0..<count {
+            for j in 0..<count - 1 - index {
                 if (list[j] > list[j + 1]) {
                     list.swapAt(j, j+1)
                 }
             }
         }
-        print(1)
     }
     
     /*
@@ -66,7 +65,6 @@ class ArraySort: NSObject {
      */
     func selectionSort(_ lists: inout [Int]) {
         for (index1, num) in lists.enumerated() {
-            
             var signNum = index1
             for i in index1..<lists.count {
                 if (num > lists[i]) {
@@ -75,7 +73,6 @@ class ArraySort: NSObject {
             }
             lists.swapAt(index1, signNum)
         }
-        print(1)
     }
     
     /*
@@ -89,7 +86,6 @@ class ArraySort: NSObject {
                 }
             }
         }
-        print(1)
     }
     
     /*
@@ -113,7 +109,6 @@ class ArraySort: NSObject {
             let f : Float = Float((gap*1)/3)
             gap = Int(floorf(f))
         }
-        print(1)
     }
     
     /*
@@ -154,6 +149,24 @@ class ArraySort: NSObject {
         if (center != i) {
             list.swapAt(i, center)
             heapify(&list, i: center)
+        }
+    }
+    
+    /*
+     计数排序
+     */
+    func countSort(_ list: inout [Int])  {
+//        let min = list.min()
+        let max = list.max()
+        var countList = [Int](repeating: 0, count: max! + 1)
+        for (_, num) in list.enumerated() {
+            countList[num] += 1
+        }
+        list.removeAll()
+        for (index, count) in countList.enumerated() {
+            for _ in 0..<count {
+                list.append(index)
+            }
         }
     }
 }
