@@ -44,8 +44,9 @@ class ViewController: UIViewController {
         ArraySort.init().selectionSort(&seleList)
         var insertList = [4, 2, 5, 9]
         ArraySort.init().insertSort(&insertList)
-        var shellList = [4, 2, 5, 9, 10, 12, 1, 3]
+        var shellList = [20, 50, 51, 91, 2, 12, 1, 3, 100, 0, 5, 22]
 //        ArraySort.init().shellSort(&shellList)
+//        quickSort(&shellList)
         var heapList = shellList
         ArraySort.init().heapSort(&heapList)
         var countintSort = shellList

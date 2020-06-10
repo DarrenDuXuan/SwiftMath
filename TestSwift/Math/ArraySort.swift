@@ -129,7 +129,6 @@ class ArraySort: NSObject {
             heapListCount -= 1
             heapify(&list, i: 0)
         }
-        print(2)
     }
     
     private func buildHeap(_ list: inout [Int]) {
