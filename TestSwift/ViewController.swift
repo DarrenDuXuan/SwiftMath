@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         var insertList = [4, 2, 5, 9]
         ArraySort.init().insertSort(&insertList)
         var shellList = [4, 2, 5, 9, 10, 12, 1, 3]
-        ArraySort.init().shellSort(&shellList)
+//        ArraySort.init().shellSort(&shellList)
         var heapList = shellList
         ArraySort.init().heapSort(&heapList)
         var countintSort = shellList

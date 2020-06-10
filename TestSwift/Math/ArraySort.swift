@@ -63,15 +63,19 @@ class ArraySort: NSObject {
     /*
      选择排序
      */
-    func selectionSort(_ lists: inout [Int]) {
-        for (index1, num) in lists.enumerated() {
-            var signNum = index1
-            for i in index1..<lists.count {
-                if (num > lists[i]) {
-                    signNum = i
+    func selectionSort(_ list: inout [Int]) {
+        let count = list.count
+        for i in 0..<count {
+            var tempIndex = i
+            
+            for j in (i+1)..<count {
+                if (list[tempIndex] < list[j]) {
+                    tempIndex = j
                 }
             }
-            lists.swapAt(index1, signNum)
+            if (tempIndex != i) {
+                list.swapAt(tempIndex, i)
+            }
         }
     }
     
