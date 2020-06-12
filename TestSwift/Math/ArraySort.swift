@@ -127,17 +127,17 @@ class ArraySort: NSObject {
         for (index, _) in list.enumerated().reversed() {
             list.swapAt(0, index)
             heapListCount -= 1
-            heapify(&list, i: 0)
+            heapify(&list,  0)
         }
     }
     
     private func buildHeap(_ list: inout [Int]) {
         for i in (0..<heapListCount/2).reversed() {
-            heapify(&list, i: i)
+            heapify(&list, i)
         }
     }
     
-    private func heapify(_ list: inout [Int], i: Int) {
+    private func heapify(_ list: inout [Int], _ i: Int) {
         var left = 2 * i + 1,
             right = 2 * i + 2,
             center = i;
@@ -151,7 +151,7 @@ class ArraySort: NSObject {
         
         if (center != i) {
             list.swapAt(i, center)
-            heapify(&list, i: center)
+            heapify(&list, center)
         }
     }
     
