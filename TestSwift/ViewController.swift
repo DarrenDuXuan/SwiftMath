@@ -44,6 +44,7 @@ class ViewController: UIViewController {
         var list1 = [0,0,1,1,1,2,2,3,3,4]
         let _ = Math.init().removeDuplicates(&list1)
         let _ = Math.searchRange([1, 3], 1)
+        let _ = Math.searchInsert([1, 3, 5, 6], 7)
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)
