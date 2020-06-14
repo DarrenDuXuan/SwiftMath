@@ -37,6 +37,13 @@ class ViewController: UIViewController {
         let _ = Math.init().combinationSum([2,3,6,7], 7)
         let _ = Math.init().hammingDistance(1, 4)
         let _ = Math.init().numRepeatCount([1,1,2,4,3,4,1])
+        let _ = Math.init().fib(95)
+        let _ = Math.init().maxArea([1,8,6,2,5,4,8,3,7])
+        let _ = Math.init().threeSumClosest([-1,2,1,-4], 1)
+        let _ = Math.init().fourSum([1,0,-1,0,-2,2], 0)
+        var list1 = [0,0,1,1,1,2,2,3,3,4]
+        let _ = Math.init().removeDuplicates(&list1)
+        let _ = Math.searchRange([1, 3], 1)
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)

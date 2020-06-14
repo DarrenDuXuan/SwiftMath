@@ -590,4 +590,449 @@ class Math: NSObject {
         }
         return list
     }
+    
+    /*
+         斐波那契数列
+     */
+    func fib(_ n: Int) -> Int {
+        if n == 0 || n == 1 {
+            return n
+        }
+        var first = 0
+        var next = 1
+
+        for _ in 2...n {
+            first = first + next
+            next = first - next
+            first %= 1000000007
+        }
+
+        return first
+    }
+    
+    /*
+     11. 盛最多水的容器
+     */
+    //MARK: - 盛最多水的容器
+    func maxArea(_ height: [Int]) -> Int {
+        var left = 0
+        var right = height.count - 1
+        var res = 0
+        // 双指针
+        while left < right {
+            let h = min(height[left], height[right])
+            res = max(res, h * (right - left))
+            if height[left] > height[right] {
+                right -= 1
+            } else {
+                left += 1
+            }
+        }
+        
+        return res
+    }
+    
+    /*
+     15. 三数之和
+     给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
+
+     注意：答案中不可以包含重复的三元组。
+     示例：
+
+     给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+
+     满足要求的三元组集合为：
+     [
+       [-1, 0, 1],
+       [-1, -1, 2]
+     ]
+     */
+    //MARK: - 三数之和
+    func threeSum(_ nums: [Int]) -> [[Int]] {
+        if nums.count < 3 {
+           return []
+        }
+
+        var tempNums = nums
+        tempNums.sort()
+        print(tempNums)
+        var res : [[Int]] = [[Int]]()
+        for i in 0..<tempNums.count - 2 {
+            if i == 0 || (i > 0 && tempNums[i] != tempNums[i-1]) {
+                var left = i + 1,
+                right = tempNums.count - 1,
+                sum = 0 - tempNums[i]
+                while left < right {
+                    if tempNums[left] + tempNums[right] == sum {
+                        res.append([tempNums[i], tempNums[left], tempNums[right]])
+                        while left < right && tempNums[left] == tempNums[left+1] {left += 1}
+                        while left < right && tempNums[right] == tempNums[right-1] {right -= 1}
+                        left += 1
+                        right -= 1
+                    } else if tempNums[left] + tempNums[right] < sum {
+                        while left < right && tempNums[left] == tempNums[left+1] {left += 1}
+                        left += 1
+                    } else {
+                        while left < right && tempNums[right] == tempNums[right-1] {right -= 1}
+                        right -= 1
+                    }
+                }
+            }
+        }
+        return res
+    }
+    
+    /*
+     16. 最接近的三数之和
+     给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+     示例：
+     输入：nums = [-1,2,1,-4], target = 1
+     输出：2
+     解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2) 。
+     */
+    //MARK: - 最接近的三数之和
+    func threeSumClosest(_ nums: [Int], _ target: Int) -> Int {
+        if nums.count < 3 {
+            return 0
+        }
+        
+        var vNums = nums
+        vNums.sort()
+        var closeNum = vNums[0] + vNums[1] + vNums[2]
+        
+        for i in 0..<vNums.count {
+            var left = i + 1,
+            right = vNums.count - 1
+            
+            while left < right {
+                let threeNum = vNums[i] + vNums[left] + vNums[right]
+                if abs(threeNum - target) < abs(closeNum - target) {
+                    closeNum = threeNum
+                }
+                
+                if threeNum > target {
+                    right -= 1
+                } else if threeNum < target {
+                    left += 1
+                } else {
+                    return target
+                }
+            }
+        }
+        return closeNum
+    }
+    
+    /*
+     18. 四数之和
+     给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。
+
+     注意：
+
+     答案中不可以包含重复的四元组。
+
+     示例：
+
+     给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。
+
+     满足要求的四元组集合为：
+     [
+       [-1,  0, 0, 1],
+       [-2, -1, 1, 2],
+       [-2,  0, 0, 2]
+     ]
+     */
+    //MARK: - 四数之和
+    func fourSum(_ nums: [Int], _ target: Int) -> [[Int]] {
+        if nums.count < 4 {
+            return []
+        }
+
+        var vNums = nums
+        vNums.sort()
+
+        var res = [[Int]]()
+        for i in 0..<vNums.count {
+            
+            if i > 0 && vNums[i] == vNums[i-1] {
+                continue
+            }
+            
+            let threeSum = target - vNums[i]
+            
+            for j in i+1..<vNums.count {
+                
+                if j > i+1 && vNums[j] == vNums[j-1] {
+                    continue
+                }
+                
+                var left = j + 1,
+                right = vNums.count - 1,
+                sum = threeSum - vNums[j]
+                
+                while left < right {
+                    if vNums[left] + vNums[right] == sum {
+                        res.append([vNums[i], vNums[j], vNums[left], vNums[right]])
+                        while left < right && vNums[left] == vNums[left+1] {
+                            left += 1
+                        }
+                        
+                        while left < right && vNums[right] == vNums[right-1] {
+                            right -= 1
+                        }
+                        
+                        left += 1
+                        right -= 1
+                    } else if vNums[left] + vNums[right] <= sum {
+                        while left < right && vNums[left] == vNums[left+1] {
+                            left += 1
+                        }
+                        
+                        left += 1
+                    } else {
+                        while left < right && vNums[right] == vNums[right-1] {
+                            right -= 1
+                        }
+                        
+                        right -= 1
+                    }
+                }
+            }
+        }
+
+        return res
+    }
+    
+    /*
+     26. 删除排序数组中的重复项
+     给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+
+     不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+     示例 1:
+
+     给定数组 nums = [1,1,2],
+
+     函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。
+
+     你不需要考虑数组中超出新长度后面的元素。
+     示例 2:
+
+     给定 nums = [0,0,1,1,1,2,2,3,3,4],
+
+     函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。
+
+     你不需要考虑数组中超出新长度后面的元素。
+      
+
+     说明:
+
+     为什么返回数值是整数，但输出的答案是数组呢?
+
+     请注意，输入数组是以「引用」方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。
+
+     你可以想象内部操作如下:
+
+     // nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
+     int len = removeDuplicates(nums);
+
+     // 在函数里修改输入数组对于调用者是可见的。
+     // 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
+     for (int i = 0; i < len; i++) {
+         print(nums[i]);
+     }
+     */
+    //MARK: - 删除排序数组中的重复项
+    func removeDuplicates(_ nums: inout [Int]) -> Int {
+        if nums.count < 2 {
+            return nums.count
+        }
+        
+        // 快慢指针
+        var index = 0
+        for i in 1..<nums.count {
+            if nums[index] != nums[i] {
+                index += 1
+                nums[index] = nums[i]
+            }
+        }
+
+        return index + 1
+    }
+    
+    /*
+     27. 移除元素
+     给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+
+     不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+
+     元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+
+     示例 1:
+
+     给定 nums = [3,2,2,3], val = 3,
+
+     函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。
+
+     你不需要考虑数组中超出新长度后面的元素。
+     示例 2:
+
+     给定 nums = [0,1,2,2,3,0,4,2], val = 2,
+
+     函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。
+
+     注意这五个元素可为任意顺序。
+
+     你不需要考虑数组中超出新长度后面的元素。
+     */
+    //MARK: - 移除元素
+    func removeElement(_ nums: inout [Int], _ val: Int) -> Int {
+//        for (index, num) in nums.enumerated().reversed() {
+//            if num == val {
+//                nums.remove(at: index)
+//            }
+//        }
+//        return nums.count
+        var i = 0
+        for (index, _) in nums.enumerated() {
+            if nums[index] != val {
+                i += 1
+                nums[i] = nums[index]
+            }
+        }
+        return i
+    }
+    
+    /*
+     33. 搜索旋转排序数组
+     假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+
+     ( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
+
+     搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
+
+     你可以假设数组中不存在重复的元素。
+
+     你的算法时间复杂度必须是 O(log n) 级别。
+
+     示例 1:
+
+     输入: nums = [4,5,6,7,0,1,2], target = 0
+     输出: 4
+     示例 2:
+
+     输入: nums = [4,5,6,7,0,1,2], target = 3
+     输出: -1
+     */
+    //MARK:- 搜索旋转排序数组
+    func search(_ nums: [Int], _ target: Int) -> Int {
+        if nums.count == 0 {
+            return -1
+        }
+        
+        var left = 0,
+        right = nums.count - 1,
+        mid = 0
+        
+        while left <= right {
+            mid = left + (right - left)/2
+            
+            if nums[mid] == target {
+                return mid
+            } else if nums[mid] < nums[right] {
+                if nums[mid] < target && target <= nums[right] {
+                    left = mid + 1
+                } else {
+                    right = mid - 1
+                }
+            } else {
+                if nums[left] <= target && target < nums[mid] {
+                    right = mid - 1
+                } else {
+                    left = mid + 1
+                }
+            }
+        }
+        return -1
+    }
+    
+    /*
+     34. 在排序数组中查找元素的第一个和最后一个位置
+     给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+
+     你的算法时间复杂度必须是 O(log n) 级别。
+
+     如果数组中不存在目标值，返回 [-1, -1]。
+
+     示例 1:
+
+     输入: nums = [5,7,7,8,8,10], target = 8
+     输出: [3,4]
+     示例 2:
+
+     输入: nums = [5,7,7,8,8,10], target = 6
+     输出: [-1,-1]
+     */
+    //MARK:- 在排序数组中查找元素的第一个和最后一个位置
+    class func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
+        var res = [Int](repeating: -1, count: 2)
+        if nums.isEmpty {
+            return res
+        }
+        
+        var left = 0,
+            right = nums.count - 1,
+            center = 0
+        while left < right {
+            center = left + (right - left)/2
+            
+            if nums[center] >= target {
+                right = center
+            } else {
+                left = center + 1
+            }
+        }
+        
+        if nums[left] != target {
+            return res
+        }
+        
+        res[0] = left
+        
+        /*
+         // 丑陋的解法，找到一个，因为一定是连续递增的数组，所以通过已经找到index往后查
+         // 需要考虑 [1, 3] 1 -> [0, 0] 这种特殊Case就行。不够优雅
+        if nums.count == 1 && nums.first == target {
+            res[1] = left
+            return res
+        }
+        
+        for i in left+1..<nums.count {
+            if nums[i] == target {
+                res[1] = i
+            } else {
+                break
+            }
+        }
+        
+        if res[1] == -1 {
+            res[1] = res[0]
+        }
+        
+        return res
+         */
+        
+        // 第二次找右边界，right == count
+        // 从左往右查找
+        right = nums.count
+        while left < right {
+            center = left + (right - left)/2
+            
+            if nums[center] <= target {
+                left = center + 1
+            } else {
+                right = center
+            }
+        }
+        res[1] = left - 1
+        return res
+    }
 }
