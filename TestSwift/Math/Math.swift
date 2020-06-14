@@ -1085,7 +1085,7 @@ class Math: NSObject {
         }
         
         var low = 0,
-        hight = nums.count,
+        hight = nums.count-1,
         mid = 0
         while low < hight {
             mid = low + (hight - low)/2
@@ -1100,7 +1100,7 @@ class Math: NSObject {
                 hight = mid - 1
             }
         }
-        return low;
+        return target > nums[low] ? low + 1 : low ;
     }
 }
 
