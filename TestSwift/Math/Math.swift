@@ -1239,6 +1239,140 @@ class Math: NSObject {
         
         return numList
     }
+    
+    /*
+     55. 跳跃游戏
+     给定一个非负整数数组，你最初位于数组的第一个位置。
+
+     数组中的每个元素代表你在该位置可以跳跃的最大长度。
+
+     判断你是否能够到达最后一个位置。
+
+     示例 1:
+
+     输入: [2,3,1,1,4]
+     输出: true
+     解释: 我们可以先跳 1 步，从位置 0 到达 位置 1, 然后再从位置 1 跳 3 步到达最后一个位置。
+     示例 2:
+
+     输入: [3,2,1,0,4]
+     输出: false
+     解释: 无论怎样，你总会到达索引为 3 的位置。但该位置的最大跳跃长度是 0 ， 所以你永远不可能到达最后一个位置。
+     */
+    //MARK: - 跳跃游戏
+    class func canJump(_ nums: [Int]) -> Bool {
+        if nums.isEmpty || nums.count == 1 {
+            return true
+        }
+        
+        var jumpLen = 0
+        for (index, num) in nums.enumerated() {
+            if index > jumpLen {
+                return false
+            }
+
+            jumpLen = max(jumpLen, index + num)
+
+            if jumpLen > nums.count - 1 {
+                return true
+            }
+        }
+
+        return false
+    }
+    
+    /*
+     14. 最长公共前缀
+     编写一个函数来查找字符串数组中的最长公共前缀。
+
+     如果不存在公共前缀，返回空字符串 ""。
+
+     示例 1:
+
+     输入: ["flower","flow","flight"]
+     输出: "fl"
+     示例 2:
+
+     输入: ["dog","racecar","car"]
+     输出: ""
+     解释: 输入不存在公共前缀。
+     */
+    //MARK: - 最长公共前缀
+    class func longestCommonPrefix(_ strs: [String]) -> String {
+        if strs.isEmpty {
+            return ""
+        }
+        
+        if strs.count == 1 {
+            return strs.first!
+        }
+        
+        var index = 0
+        var str = ""
+        
+        while true {
+            var judgeStr = ""
+            let count = strs.count
+        
+            for (i, string) in strs.enumerated() {
+                if index >= string.count {
+                    return str
+                }
+
+                let strIndex = string.index(string.startIndex, offsetBy: index)
+                let endIndex = string.index(string.startIndex, offsetBy: index + 1)
+                let tempStr = String(string[strIndex..<endIndex])
+                if i == 0 {
+                    judgeStr = tempStr
+                } else {
+                    if i == count - 1 {
+                        if judgeStr == tempStr {
+                            str += tempStr
+                        } else {
+                            return str
+                        }
+                    } else {
+                        if judgeStr != tempStr {
+                            return str
+                        }
+                    }
+                }
+            }
+            index += 1
+        }
+        return str
+    }
+    
+    class func merge(_ intervals: [[Int]]) -> [[Int]] {
+        if intervals.isEmpty {
+            return []
+        }
+        
+        var vIntervals = intervals
+        vIntervals = vIntervals.sorted { (n0, n1) -> Bool in
+            return n0[0] < n1[0]
+        }
+        
+        var first = [Int]()
+        var res = [[Int]]()
+        
+        for (index, list) in vIntervals.enumerated() {
+            if index == 0 {
+                first = list
+            }
+            
+            if vIntervals[index][0] <= first[1] {
+                first[1] = max(first[1], vIntervals[index][1])
+            } else {
+                res.append(first)
+                first = vIntervals[index]
+            }
+        }
+        
+        res.append(first)
+        
+        return res
+    }
 }
 
 

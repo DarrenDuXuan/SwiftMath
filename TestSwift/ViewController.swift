@@ -51,6 +51,9 @@ class ViewController: UIViewController {
         
         Math.rotate(&matrix)
         let _ = Math.spiralOrder([[1,2,3],[4,5,6],[7,8,9]])
+        let _ = Math.canJump([2,0,0])
+        let _ = Math.longestCommonPrefix(["flower","flow","flight"])
+        let _ = Math.merge([[1,3],[2,6],[8,10],[15,18]])
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)
