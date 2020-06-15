@@ -29,10 +29,6 @@ class ViewController: UIViewController {
         let _ = Math.init().subsets([3, 2, 1])
         let _ = Math.init().productExceptSelf([1,2,3,4])
         let _ = Math.init().countBits(4)
-        let _ = Math.init().spiralOrder([[2,3,4],
-                                         [5,6,7],
-                                         [8,9,10],
-                                         [11,12,13]])
         let _ = Math.init().longestConsecutive([100, 4, 200, 1, 3, 2])
         let _ = Math.init().combinationSum([2,3,6,7], 7)
         let _ = Math.init().hammingDistance(1, 4)
@@ -45,6 +41,16 @@ class ViewController: UIViewController {
         let _ = Math.init().removeDuplicates(&list1)
         let _ = Math.searchRange([1, 3], 1)
         let _ = Math.searchInsert([1, 3, 5, 6], 7)
+        let _ = Math.init().combinationSum2([10,1,2,7,6,1,5], 8)
+        var matrix =
+        [
+          [1,2,3],
+          [4,5,6],
+          [7,8,9]
+        ]
+        
+        Math.rotate(&matrix)
+        let _ = Math.spiralOrder([[1,2,3],[4,5,6],[7,8,9]])
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)
