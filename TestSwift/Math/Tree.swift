@@ -598,6 +598,108 @@ class Tree: NSObject {
         
         return max(left, right) + 1
     }
+    
+    /*
+     297. 二叉树的序列化与反序列化
+     序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。
+
+     请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。
+
+     示例:
+
+     你可以将以下二叉树：
+
+         1
+        / \
+       2   3
+          / \
+         4   5
+
+     序列化为 "[1,2,3,null,null,4,5]"
+     */
+    //MARK: - 二叉树的序列化与反序列化
+    func serialize(_ root: TreeNode?) -> String {
+        if root == nil {
+            return ""
+        }
+        var str = ""
+        var nodeList = [TreeNode]()
+        nodeList.append(root!)
+        str.append(String(root!.val))
+        
+        while nodeList.count != 0 {
+            
+            let count = nodeList.count
+            for _ in 0..<count {
+                let node = nodeList.removeFirst()
+                
+                str += ","
+                if let left = node.left {
+                    nodeList.append(left)
+                    str.append(String(left.val))
+                } else {
+                    str.append("null")
+                }
+                
+                str += ","
+                if let right = node.right {
+                    nodeList.append(right)
+                    str.append(String(right.val))
+                } else {
+                    str.append("null")
+                }
+            }
+        }
+        return str
+    }
+    
+    func deserialize(_ data: String) -> TreeNode? {
+        if data.count == 0 {
+            return nil
+        }
+        
+        let list = data.components(separatedBy: ",")
+        
+        if list.isEmpty {
+            return nil
+        }
+        
+        let curS : String! = list[0]
+        guard let val = Int(curS) else { return nil }
+        let res = TreeNode.init(val)
+        var resList = [TreeNode]()
+        resList.append(res)
+        var index = 0
+        while true {
+            let node = resList.removeFirst()
+            index += 1
+            if index >= list.count {
+                break
+            }
+            if list[index] != "null" {
+                let valStr = list[index]
+                guard let val = Int(valStr) else { return nil }
+                let left = TreeNode.init(val)
+                node.left = left
+                resList.append(node.left!)
+            }
+            
+            index += 1
+            if index >= list.count {
+                break
+            }
+            
+            if list[index] != "null" {
+                let valStr = list[index]
+                guard let val = Int(valStr) else { return nil }
+                let right = TreeNode.init(val)
+                node.right = right
+                resList.append(node.right!)
+            }
+        }
+        
+        return res
+    }
 }
 
     

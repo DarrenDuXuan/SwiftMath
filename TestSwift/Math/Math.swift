@@ -1343,6 +1343,22 @@ class Math: NSObject {
         return str
     }
     
+    /*
+     56. 合并区间
+     给出一个区间的集合，请合并所有重叠的区间。
+
+    示例 1:
+
+    输入: [[1,3],[2,6],[8,10],[15,18]]
+    输出: [[1,6],[8,10],[15,18]]
+    解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+    示例 2:
+
+    输入: [[1,4],[4,5]]
+    输出: [[1,5]]
+    解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
+     */
+    //MARK: - 合并区间
     class func merge(_ intervals: [[Int]]) -> [[Int]] {
         if intervals.isEmpty {
             return []
@@ -1373,6 +1389,81 @@ class Math: NSObject {
         
         return res
     }
+    
+    /*
+     59. 螺旋矩阵 II
+     给定一个正整数 n，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。
+
+     示例:
+
+     输入: 3
+     输出:
+     [
+      [ 1, 2, 3 ],
+      [ 8, 9, 4 ],
+      [ 7, 6, 5 ]
+     ]
+     */
+    //MARK:- 螺旋矩阵 II
+    class func generateMatrix(_ n: Int) -> [[Int]] {
+        if n == 0 {
+            return []
+        }
+        
+        if n == 1 {
+            return [[1]]
+        }
+        
+        var left = 0,
+        right = n - 1,
+        top = 0,
+        bottom = n - 1
+        
+        var maxtrixList = [[Int]](repeating: [Int](repeating: 0, count: n), count: n)
+        var num = 0
+        
+        while true {
+            for i in left...right {
+                num += 1
+                maxtrixList[top][i] = num
+            }
+            top += 1
+            if top > bottom {
+                break
+            }
+            
+            for i in top...bottom {
+                num += 1
+                maxtrixList[i][right] = num
+            }
+            right -= 1
+            if right < left {
+                break
+            }
+            
+            for i in (left...right).reversed() {
+                num += 1
+                maxtrixList[bottom][i] = num
+            }
+            bottom -= 1
+            if bottom < top {
+                break
+            }
+            
+            for i in (top...bottom).reversed() {
+                num += 1
+                maxtrixList[i][left] = num
+            }
+            left += 1
+            if left > right {
+                break
+            }
+        }
+        
+        return maxtrixList
+    }
+    
+    
 }
 
 

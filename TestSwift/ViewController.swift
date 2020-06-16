@@ -54,6 +54,8 @@ class ViewController: UIViewController {
         let _ = Math.canJump([2,0,0])
         let _ = Math.longestCommonPrefix(["flower","flow","flight"])
         let _ = Math.merge([[1,3],[2,6],[8,10],[15,18]])
+        let _ = Math.generateMatrix(3)
+        
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)
@@ -72,6 +74,10 @@ class ViewController: UIViewController {
         
         let _ = Search.BinarySearchRecursive([1, 10, 100, 1000], 9, 0, 3)
         let _ = Search.BinarySearchNormalHasRepeatNum([1, 10, 10, 100, 1000], 10)
+        
+        let string = "1,2,3,null,null,4,5"
+        let node = Tree.init().deserialize(string)
+        let _ = Tree.init().serialize(node)
     }
 }
 
