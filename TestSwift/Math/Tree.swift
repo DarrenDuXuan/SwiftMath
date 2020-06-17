@@ -25,9 +25,6 @@ class Tree: NSObject {
     //MARK: - 二叉树的遍历
     /*
      给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
-
-      
-
      示例：
      二叉树：[3,9,20,null,null,15,7],
 
@@ -438,13 +435,6 @@ class Tree: NSObject {
          1   3
 
      最小的差值是 1, 它是节点1和节点2的差值, 也是节点3和节点2的差值。
-      
-
-     注意：
-
-     1. 二叉树的大小范围在 2 到 100。
-     2. 二叉树总是有效的，每个节点的值都是整数，且不重复。
-     3. 本题与 530：https://leetcode-cn.com/problems/minimum-absolute-difference-in-bst/ 相同
      */
     func minDiffInBST(_ root: TreeNode?) -> Int {
         
@@ -454,9 +444,6 @@ class Tree: NSObject {
     /*
      114. 二叉树展开为链表
      给定一个二叉树，原地将它展开为一个单链表。
-
-      
-
      例如，给定二叉树
 
          1

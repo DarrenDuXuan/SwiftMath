@@ -55,6 +55,13 @@ class ViewController: UIViewController {
         let _ = Math.longestCommonPrefix(["flower","flow","flight"])
         let _ = Math.merge([[1,3],[2,6],[8,10],[15,18]])
         let _ = Math.generateMatrix(3)
+        let _ = Math.uniquePaths(3, 2)
+        let _ = Math.uniquePathsWithObstacles([[0,0,0],[0,1,0],[0,0,0]])
+        let _ = Math.pairSums([2, 1, 8, 6, 5, 7, -1, 3, 5, 5], 7)
+        let _ = Math.searchMatrix([[1]], 1)
+        let _ = Math.minPathSum([[1,3,1],[1,5,1],[4,2,1]])
+        var tList = [1]
+        let _ = Math.init().sortColors(&tList)
         
         
         var list = [4, 2, 5, 9]

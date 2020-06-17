@@ -1463,7 +1463,358 @@ class Math: NSObject {
         return maxtrixList
     }
     
+    /*
+     1014. 最佳观光组合
+     给定正整数数组 A，A[i] 表示第 i 个观光景点的评分，并且两个景点 i 和 j 之间的距离为 j - i。
+
+     一对景点（i < j）组成的观光组合的得分为（A[i] + A[j] + i - j）：景点的评分之和减去它们两者之间的距离。
+
+     返回一对观光景点能取得的最高分。
+     示例：
+
+     输入：[8,1,5,2,6]
+     输出：11
+     解释：i = 0, j = 2, A[i] + A[j] + i - j = 8 + 5 + 0 - 2 = 11
+     */
+    //MARK: - 最佳观光组合
+    func maxScoreSightseeingPair(_ A: [Int]) -> Int {
+        var res = 0
+        for j in 0..<A.count {
+            for i in 0..<j {
+                res = max(res, A[j] - j + A[i] + i)
+            }
+        }
+//        return res
+        
+        var maxScore = Int(UInt8.min),
+        left = A[0]
+        
+        for i in 1..<A.count {
+            maxScore = max(maxScore, A[i] - i + left)
+            left = max(left, A[i] + i)
+        }
+        return maxScore
+    }
     
+    /*
+     62. 不同路径
+     一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+
+     机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+
+     问总共有多少条不同的路径？
+     */
+    class func uniquePaths(_ m: Int, _ n: Int) -> Int {
+        
+        var dp = [[Int]](repeating: [Int](repeating: 0, count: m), count: n)
+        for i in 0..<n {
+            for j in 0..<m {
+                if i == 0 || j == 0 {
+                    dp[i][j] = 1
+                } else {
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1]
+                }
+            }
+        }
+        
+        return dp[n-1][m-1]
+    }
+    
+    class func uniquePathsWithObstacles(_ obstacleGrid: [[Int]]) -> Int {
+        if obstacleGrid.isEmpty || obstacleGrid[0].isEmpty {
+            return 0
+        }
+        
+        var res = [[Int]](repeating: [Int](repeating: 0, count: obstacleGrid[0].count), count: obstacleGrid.count)
+        let count = obstacleGrid.count
+        let listCount = obstacleGrid[0].count
+        
+        for i in 0..<count {
+            
+            for j in 0..<listCount {
+                if obstacleGrid[i][j] == 1 {
+                    res[i][j] = 0
+                } else {
+                    if i == 0 && j == 0 {
+                        res[i][j] = 1
+                    } else if i == 0 {
+                        res[i][j] = res[i][j - 1]
+                    } else if j == 0 {
+                        res[i][j] = res[i - 1][j]
+                    } else {
+                        res[i][j] = res[i - 1][j] + res[i][j - 1]
+                    }
+                }
+            }
+        }
+        let lastList : [Int] = res[res.count-1]
+        return lastList[lastList.count-1]
+    }
+    
+    /*
+     面试题 16.24. 数对和
+     设计一个算法，找出数组中两数之和为指定值的所有整数对。一个数只能属于一个数对。
+     */
+    //MARK: - 数对和
+    class func pairSums(_ nums: [Int], _ target: Int) -> [[Int]] {
+        if nums.isEmpty {
+            return []
+        }
+        
+//        var dict = [Int:Int]()
+//        var res = [[Int]]()
+//
+//        for num in nums {
+//            let signNum = target - num
+//            if dict[signNum] != nil && dict[signNum] ?? 0 > 0 {
+//                res.append([num, signNum])
+//                let i = dict[signNum]
+//                dict[signNum] = i! - 1
+//            } else {
+//                if dict[num] != nil {
+//                    var cNum = dict[num]
+//                    cNum! += 1
+//                    dict[num] = cNum
+//                } else {
+//                    dict[num] = 1
+//                }
+//            }
+//        }
+//
+//        return res
+        
+        var vNums = nums
+        vNums.sort()
+        
+        var begin = 0,
+        end = nums.count - 1,
+        res = [[Int]]()
+        
+        while begin < end {
+            
+            let curBeginNum = vNums[begin]
+            let curEndNum = vNums[end]
+            
+            if curEndNum + curBeginNum == target {
+                res.append([curBeginNum, curEndNum])
+                begin += 1
+                end -= 1
+            } else if curEndNum + curBeginNum < target {
+                begin += 1
+            } else {
+                end -= 1
+            }
+        }
+        return res
+    }
+    
+    class func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
+        if matrix.isEmpty || matrix[0].isEmpty {
+            return false
+        }
+        
+        var row = -1
+        let col = matrix[0].count - 1
+        
+        for i in 0..<matrix.count {
+            let curNum = matrix[i][col]
+            if i > 0 {
+                let preNum = matrix[i-1][col]
+                if target <= curNum &&
+                    target > preNum &&
+                    row == -1 {
+                    row = i
+                    break
+                }
+            } else {
+                if target <= curNum &&
+                    row == -1 {
+                    row = i
+                    break
+                }
+            }
+        }
+        if row == -1 {
+            return false
+        }
+        
+        let colCount = matrix[0].count
+        for i in 0..<colCount {
+            if matrix[row][i] == target {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    /*
+     64. 最小路径和
+     给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+     */
+    //MARK: - 最小路径和
+    class func minPathSum(_ grid: [[Int]]) -> Int {
+        if grid.isEmpty {
+            return 0
+        }
+        
+        var dp = [[Int]](repeating: [Int](repeating: 0, count: grid[0].count), count: grid.count)
+        
+        for i in 0..<grid.count {
+            for j in 0..<grid[0].count {
+                
+                if i == 0 && j == 0 {
+                    dp[i][j] = grid[0][0]
+                } else if i == 0 && j != 0 {
+                    dp[i][j] = dp[i][j-1] + grid[i][j]
+                } else if j == 0 && i != 0 {
+                    dp[i][j] = dp[i-1][j] + grid[i][j]
+                } else {
+                    dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]
+                }
+            }
+        }
+        
+        let lastList = dp.last
+        let res = lastList!.last ?? 0
+        return res
+    }
+    
+    /*
+     75. 颜色分类
+     给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+
+     此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+
+     注意:
+     不能使用代码库中的排序函数来解决这道题。
+     */
+    func sortColors(_ nums: inout [Int]) {
+//        quickSortHelp(&nums, 0, nums.count-1)
+        countSort(&nums)
+    }
+    
+    private func quickSortHelp(_ nums: inout [Int], _ left: Int, _ right: Int) {
+        if left >= right {
+            return
+        }
+        
+        let sign = partition(&nums, left, right)
+        
+        quickSortHelp(&nums, left, sign-1)
+        quickSortHelp(&nums, sign+1, right)
+    }
+    
+    private func partition(_ nums: inout [Int], _ left: Int, _ right: Int) -> Int {
+        let sign = nums[right]
+        
+        var vLeft = left
+        for i in left..<right {
+            if sign >= nums[i] {
+                nums.swapAt(vLeft, i)
+                vLeft += 1
+            }
+        }
+        
+        nums.swapAt(vLeft, right)
+        return vLeft
+    }
+    
+    private func countSort(_ nums: inout [Int]) {
+        var tempList = [Int](repeating: 0, count: 3)
+
+        for num in nums {
+            tempList[num] += 1
+        }
+        
+        var resList = [Int]()
+        for (index, num) in tempList.enumerated() {
+            for _ in 0..<num {
+                resList.append(index)
+            }
+        }
+        nums = resList
+    }
+    
+    private func threeQuickSort(_ nums: inout [Int]) {
+        
+    }
+    
+    private func mpSort(_ nums: inout [Int]) {
+        let count = nums.count
+        
+        for i in 0..<count {
+            for j in 0..<count-1-i {
+                if nums[j] >= nums[j + 1] {
+                    nums.swapAt(j, j + 1)
+                }
+            }
+        }
+    }
+    
+    private func insertSort(_ nums: inout [Int]) {
+        for (index, num) in nums.enumerated() {
+            for i in (0..<index).reversed() {
+                if nums[i] >= num {
+                    nums.swapAt(i, i + 1)
+                }
+            }
+        }
+    }
+    
+    private func selectSort(_ nums: inout [Int]) {
+        for (index, _) in nums.enumerated() {
+            
+            var tempIndex = index
+            
+            for j in index+1..<nums.count {
+                if nums[tempIndex] >= nums[j] {
+                    tempIndex = j
+                }
+            }
+            
+            if tempIndex != index {
+                nums.swapAt(tempIndex, index)
+            }
+        }
+    }
+    
+    var heapCount = 0
+    private func heapSort(_ nums: inout [Int]) {
+        heapCount = nums.count
+        
+        buildHeap(&nums)
+        
+        for i in (0..<nums.count).reversed() {
+            nums.swapAt(0, i)
+            heapCount -= 1
+            heapify(&nums, 0)
+        }
+    }
+    
+    private func buildHeap(_ nums: inout [Int]) {
+        for i in (0..<heapCount/2).reversed() {
+            heapify(&nums, i)
+        }
+    }
+    
+    private func heapify(_ nums: inout [Int], _ i: Int) {
+        var left = i * 2 + 1,
+        right = i * 2 + 2,
+        center = i
+        if left < heapCount && nums[left] >= nums[center] {
+            center = left
+        }
+        
+        if right < heapCount && nums[right] >= nums[center] {
+            center = right
+        }
+        
+        if center != i {
+            nums.swapAt(i, center)
+            heapify(&nums, center)
+        }
+    }
 }
 
 
