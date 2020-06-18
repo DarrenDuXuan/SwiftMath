@@ -62,6 +62,7 @@ class ViewController: UIViewController {
         let _ = Math.minPathSum([[1,3,1],[1,5,1],[4,2,1]])
         var tList = [1]
         let _ = Math.init().sortColors(&tList)
+        let _ = Math.subsetsWithDup([1,2,2])
         
         
         var list = [4, 2, 5, 9]
@@ -85,6 +86,8 @@ class ViewController: UIViewController {
         let string = "1,2,3,null,null,4,5"
         let node = Tree.init().deserialize(string)
         let _ = Tree.init().serialize(node)
+        let _ = Tree.init().recoverFromPreorder("1-2--3--4-5--6--7")
+        
     }
 }
 

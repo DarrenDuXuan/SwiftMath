@@ -22,25 +22,7 @@ class TreeNode : NSObject {
 
 
 class Tree: NSObject {
-    //MARK: - 二叉树的遍历
-    /*
-     给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。
-     示例：
-     二叉树：[3,9,20,null,null,15,7],
-
-         3
-        / \
-       9  20
-         /  \
-        15   7
-     返回其层次遍历结果：
-
-     [
-       [3],
-       [9,20],
-       [15,7]
-     ]
-     */
+    //MARK: - 二叉树的层遍历
     func levelOrder(_ root: TreeNode?) -> [[Int]] {
         if (root == nil) {
             return []
@@ -68,22 +50,43 @@ class Tree: NSObject {
         return resNumList
     }
     
+    //MARK: - 二叉树的前序遍历
+    func inorderFrontWhile(_ root: TreeNode?) -> [Int] {
+        
+        var res = [Int]()
+        var treeList = [TreeNode]()
+        var node = root
+        
+        while node != nil || !treeList.isEmpty {
+            while node != nil {
+                res.append(node!.val)
+                treeList.append(node!)
+                node = node?.left
+            }
+            
+            if !treeList.isEmpty {
+                node = treeList.popLast()
+                node = node?.right
+            }
+        }
+        return res
+    }
+    
+    var frontList = [Int]()
+    func inorderFrontRecursive(_ root: TreeNode?) -> [Int] {
+        if root == nil {
+            return []
+        }
+        
+        let val = root?.val
+        frontList.append(val!)
+        let _ = inorderFrontRecursive(root?.left)
+        let _ = inorderFrontRecursive(root?.right)
+        
+        return frontList
+    }
+    
     //MARK: - 二叉树的中序遍历
-    /*
-     94. 二叉树的中序遍历
-     给定一个二叉树，返回它的中序 遍历。
-
-     示例:
-
-     输入: [1,null,2,3]
-        1
-         \
-          2
-         /
-        3
-
-     输出: [1,3,2]
-     */
     var list = [Int]()
     func inorderTraversal(_ root: TreeNode?) -> [Int] {
         if (root == nil) {
@@ -116,6 +119,47 @@ class Tree: NSObject {
         }
         
         return nList
+    }
+    
+    //MARK: - 二叉树的后序遍历
+    var postorderList = [Int]()
+    func postorderTraversal(_ root: TreeNode?) -> [Int] {
+        if root == nil {
+            return []
+        }
+        
+        let _ = postorderTraversal(root?.left)
+        let _ = postorderTraversal(root?.right)
+        let val = root?.val
+        postorderList.append(val!)
+        
+        return postorderList
+    }
+    
+    func postorderTraversalWhile(_ root: TreeNode?) -> [Int] {
+        var res = [Int]()
+        
+        var nodeList = [TreeNode]()
+        var vRoot = root
+        var lastVistNode = root
+        
+        while vRoot != nil || !nodeList.isEmpty {
+            while vRoot != nil {
+                nodeList.append(vRoot!)
+                vRoot = vRoot?.left
+            }
+            vRoot = nodeList.last
+            if vRoot?.right == nil || vRoot?.right === lastVistNode {
+                res.append(vRoot!.val)
+                nodeList.removeLast()
+                lastVistNode = vRoot
+                vRoot = nil
+            } else {
+                vRoot = vRoot?.right
+            }
+        }
+        
+        return res
     }
     
     //MARK: - 不修改原树，二叉树的合并
@@ -161,7 +205,7 @@ class Tree: NSObject {
             t2Val = val
         }
         
-        t1Val += t2Val;
+        t1Val += t2Val
         t1?.val = t1Val
         
         t1?.left = mergeTrees1(t1?.left, t2?.left)
@@ -686,6 +730,35 @@ class Tree: NSObject {
         }
         
         return res
+    }
+    
+    var res = [Int: TreeNode]()
+    func recoverFromPreorder(_ S: String) -> TreeNode? {
+        var val = "",
+        deep = 0
+        res[-1] = TreeNode.init(0)
+        for c in S {
+            if c != "-" {
+                val += String(c)
+            } else if val != "" {
+                addTree(val, deep)
+                val = ""
+                deep = 1
+            } else {
+                deep += 1
+            }
+        }
+        addTree(val, deep)
+        return res[0]
+    }
+    
+    private func addTree(_ val: String, _ key: Int) {
+        res[key] = TreeNode.init(Int(val) ?? 0)
+        if res[key - 1]?.left != nil {
+            res[key - 1]?.left = res[key]
+        } else {
+            res[key - 1]?.right = res[key]
+        }
     }
 }
 

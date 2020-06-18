@@ -1815,6 +1815,23 @@ class Math: NSObject {
             heapify(&nums, center)
         }
     }
+    
+    class func subsetsWithDup(_ nums: [Int]) -> [[Int]] {
+        var res = [[Int]]()
+    
+        for num in nums {
+            for (index, list) in res.enumerated() {
+                var vList = list
+                vList.append(num)
+                res.remove(at: index)
+                res.insert(vList, at: index)
+            }
+            
+            res.append([num])
+        }
+        res.append([])
+        return res
+    }
 }
 
 
