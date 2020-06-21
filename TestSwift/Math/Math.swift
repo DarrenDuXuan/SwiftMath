@@ -1833,34 +1833,7 @@ class Math: NSObject {
         return res
     }
     
-    //MARK: - 无重复字符的最长子串
-    func lengthOfLongestSubstring(_ s: String) -> Int {
-        var count = 0
-        var left = 0
-        var right = 0
-        var strList = [Character]()
-        
-        for (_, str) in s.enumerated() {
-            if !strList.isEmpty {
-                while strList.contains(str) && !strList.isEmpty {
-                    strList.removeFirst()
-                    left += 1
-                }
-            }
-            
-            strList.append(str)
-            right += 1
-            
-            count = max(count, strList.count)
-        }
-        
-        return count
-    }
     
-    //MARK: - 5. 最长回文子串
-    func longestPalindrome(_ s: String) -> String {
-        return ""
-    }
 }
 
 

@@ -27,25 +27,25 @@ class ViewController: UIViewController {
         let _ = _list.rotateRight(headNode, 1)
         
         let _ = Math.findDisappearedNumbers([4,3,2,7,8,2,3,1,9,11])
-        let _ = Math.init().isValid("()")
-        let _ = Math.init().findUnsortedSubarray([2,6,4,8,10,9,15])
-        let _ = Math.init().sumNums(3)
-        let _ = Math.init().subsets([3, 2, 1])
-        let _ = Math.init().productExceptSelf([1,2,3,4])
-        let _ = Math.init().countBits(4)
-        let _ = Math.init().longestConsecutive([100, 4, 200, 1, 3, 2])
-        let _ = Math.init().combinationSum([2,3,6,7], 7)
-        let _ = Math.init().hammingDistance(1, 4)
-        let _ = Math.init().numRepeatCount([1,1,2,4,3,4,1])
-        let _ = Math.init().fib(95)
-        let _ = Math.init().maxArea([1,8,6,2,5,4,8,3,7])
-        let _ = Math.init().threeSumClosest([-1,2,1,-4], 1)
-        let _ = Math.init().fourSum([1,0,-1,0,-2,2], 0)
+        let _ = _math.isValid("()")
+        let _ = _math.findUnsortedSubarray([2,6,4,8,10,9,15])
+        let _ = _math.sumNums(3)
+        let _ = _math.subsets([3, 2, 1])
+        let _ = _math.productExceptSelf([1,2,3,4])
+        let _ = _math.countBits(4)
+        let _ = _math.longestConsecutive([100, 4, 200, 1, 3, 2])
+        let _ = _math.combinationSum([2,3,6,7], 7)
+        let _ = _math.hammingDistance(1, 4)
+        let _ = _math.numRepeatCount([1,1,2,4,3,4,1])
+        let _ = _math.fib(95)
+        let _ = _math.maxArea([1,8,6,2,5,4,8,3,7])
+        let _ = _math.threeSumClosest([-1,2,1,-4], 1)
+        let _ = _math.fourSum([1,0,-1,0,-2,2], 0)
         var list1 = [0,0,1,1,1,2,2,3,3,4]
-        let _ = Math.init().removeDuplicates(&list1)
+        let _ = _math.removeDuplicates(&list1)
         let _ = Math.searchRange([1, 3], 1)
         let _ = Math.searchInsert([1, 3, 5, 6], 7)
-        let _ = Math.init().combinationSum2([10,1,2,7,6,1,5], 8)
+        let _ = _math.combinationSum2([10,1,2,7,6,1,5], 8)
         var matrix =
         [
           [1,2,3],
@@ -65,9 +65,8 @@ class ViewController: UIViewController {
         let _ = Math.searchMatrix([[1]], 1)
         let _ = Math.minPathSum([[1,3,1],[1,5,1],[4,2,1]])
         var tList = [1]
-        let _ = Math.init().sortColors(&tList)
+        let _ = _math.sortColors(&tList)
         let _ = Math.subsetsWithDup([1,2,2])
-        let _ = _math.lengthOfLongestSubstring("abcabcbb")
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)
