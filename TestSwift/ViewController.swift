@@ -11,18 +11,22 @@ import UIKit
 
 
 class ViewController: UIViewController {
+    var _list : List! = List.init()
+    var _math = Math.init()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        let _ = Math.findDisappearedNumbers([4,3,2,7,8,2,3,1,9,11])
-        
+    
         let head = ListNode.init(1)
         let next = ListNode.init(2)
         head.next = next
-        let _ = List.init().isPalindrome(head)
+        let _ = _list.isPalindrome(head)
+        let headNode = _list.creatNodeList([1])
+        let _ = _list.rotateRight(headNode, 1)
         
+        let _ = Math.findDisappearedNumbers([4,3,2,7,8,2,3,1,9,11])
         let _ = Math.init().isValid("()")
         let _ = Math.init().findUnsortedSubarray([2,6,4,8,10,9,15])
         let _ = Math.init().sumNums(3)
@@ -63,7 +67,7 @@ class ViewController: UIViewController {
         var tList = [1]
         let _ = Math.init().sortColors(&tList)
         let _ = Math.subsetsWithDup([1,2,2])
-        
+        let _ = _math.lengthOfLongestSubstring("abcabcbb")
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)

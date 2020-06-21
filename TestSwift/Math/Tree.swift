@@ -164,24 +164,19 @@ class Tree: NSObject {
     
     //MARK: - 不修改原树，二叉树的合并
     func mergeTrees(_ t1: TreeNode?, _ t2: TreeNode?) -> TreeNode? {
-        if (t1==nil && t2 == nil) {
-            return nil
+        if t1 == nil {
+            return t2
         }
         
-        var t1Value = 0, t2Value = 0
-        if let value = t1?.val {
-            t1Value = value
+        if t2 == nil {
+            return t1
         }
         
-        if let value = t2?.val {
-            t2Value = value
-        }
-        
-        let value = t1Value + t2Value
-        let node = TreeNode(value)
+        let val = t1!.val + t2!.val
+        let node = TreeNode.init(val)
         
         node.left = mergeTrees(t1?.left, t2?.left)
-        node.left = mergeTrees(t1?.right, t2?.right)
+        node.right = mergeTrees(t1?.right, t2?.right)
         
         return node
     }
@@ -547,20 +542,17 @@ class Tree: NSObject {
      */
     // MARK: - 正序翻转二叉树
     func invertTree(_ root: TreeNode?) -> TreeNode? {
-        
-        if (root == nil) {
-            return root
+        if root == nil {
+            return nil
         }
         
-        let tRoot = root
-        let temp = tRoot?.left
-        tRoot?.left = tRoot?.right
-        tRoot?.right = temp
+        let tempLeft = root?.left
+        root?.left = root?.right
+        root?.right = tempLeft
         
-        let _ = invertTree(tRoot?.left)
-        let _ = invertTree(tRoot?.right)
-        
-        return tRoot
+        let _ = invertTree(root?.left)
+        let _ = invertTree(root?.right)
+        return root
     }
     
     // MARK: - 中序翻转二叉树
@@ -684,6 +676,7 @@ class Tree: NSObject {
         return str
     }
     
+    //MARK: - 二叉树序列换，反序列化
     func deserialize(_ data: String) -> TreeNode? {
         if data.count == 0 {
             return nil
@@ -759,6 +752,108 @@ class Tree: NSObject {
         } else {
             res[key - 1]?.right = res[key]
         }
+    }
+    
+    //MARK: - 前中重建二叉树
+    func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
+        return buildTreeHelp(preorder, inorder, 0, 0, inorder.count - 1)
+    }
+    
+    private func buildTreeHelp(_ preorder: [Int], _ inorder: [Int], _ root: Int, _ start: Int, _ end: Int) -> TreeNode? {
+        if start > end {
+            return nil
+        }
+        
+        let node = TreeNode.init(preorder[root])
+        var i = start
+        while i < end && preorder[root] != inorder[i] {
+            i += 1
+        }
+        
+        node.left = buildTreeHelp(preorder, inorder, root + 1, start, i - 1)
+        node.right = buildTreeHelp(preorder, inorder, root + 1 + i - start, i + 1, end)
+        return node
+    }
+    
+    //MARK: - 平衡二叉树
+    func isBalanced(_ root: TreeNode?) -> Bool {
+        return isBalancedHelp(root) >= 0
+    }
+    
+    private func isBalancedHelp(_ root: TreeNode?) -> Int {
+        if root == nil {
+            return 0
+        }
+        
+        let lh = isBalancedHelp(root?.left)
+        let rh = isBalancedHelp(root?.right)
+        
+        if lh >= 0 && rh >= 0 && abs(lh - rh) <= 1 {
+            return max(lh, rh) + 1
+        } else {
+            return -1
+        }
+    }
+    
+    //MARK: -  最大二叉树
+    func constructMaximumBinaryTree(_ nums: [Int]) -> TreeNode? {
+        return constructMaximumBinaryTreeHelp(nums, 0, nums.count - 1)
+    }
+    
+    private func constructMaximumBinaryTreeHelp(_ nums: [Int], _ l: Int, _ r: Int) -> TreeNode? {
+        if l > r {
+            return nil
+        }
+        
+        let maxIndex = findMax(nums, l, r)
+        let root = TreeNode.init(nums[maxIndex])
+        root.left = constructMaximumBinaryTreeHelp(nums, l, maxIndex - 1)
+        root.right = constructMaximumBinaryTreeHelp(nums, maxIndex + 1, r)
+        return root
+    }
+    
+    private func findMax(_ nums: [Int], _ l: Int, _ r: Int) -> Int {
+        var max = -256,
+        maxIndex = l
+        
+        for i in l...r {
+            if max < nums[i] {
+                max = nums[i]
+                maxIndex = i
+            }
+        }
+        
+        return maxIndex
+    }
+    
+    //MARK: - 二叉树最小深度
+    func minDepth(_ root: TreeNode?) -> Int {
+        if root == nil {
+            return 0
+        }
+        
+        if root?.left == nil && root?.right != nil {
+            return 1 + minDepth(root?.right)
+        }
+        
+        if root?.right == nil && root?.left != nil {
+            return 1 + minDepth(root?.left)
+        }
+        
+        return 1 + min(minDepth(root?.left), minDepth(root?.right))
+    }
+    
+    //MARK: - 删除排序链表中的重复元素
+    func deleteDuplicates(_ head: ListNode?) -> ListNode? {
+        var vHead = head
+        while vHead != nil && vHead?.next != nil {
+            if vHead!.val == vHead?.next?.val {
+                vHead?.next = vHead?.next?.next
+            } else {
+                vHead = vHead?.next
+            }
+        }
+        return head
     }
 }
 

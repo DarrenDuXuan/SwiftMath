@@ -18,6 +18,19 @@ class ListNode : NSObject {
 }
 
 class List: NSObject {
+    func creatNodeList(_ list: [Int]) -> ListNode? {
+        var node = ListNode.init(0)
+        let head = node
+        
+        for num in list {
+            let tNode = ListNode.init(num)
+            node.next = tNode
+            node = tNode
+        }
+        
+        return head.next
+    }
+    
     func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
         if (headA == nil || headB == nil) {
             return nil
@@ -194,5 +207,235 @@ class List: NSObject {
             }
         }
         return 0
+    }
+    
+    //MARK: - 两数相加
+    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        let resNode : ListNode! = ListNode.init(0)
+        var res : ListNode! = resNode
+    
+        var sign = 0,
+        vL1 = l1,
+        vL2 = l2
+        
+        
+        while vL1 != nil || vL2 != nil || sign != 0 {
+            var l1Val = 0,
+            l2Val = 0
+            
+            if let val = vL1?.val {
+                l1Val = val
+            }
+            
+            if let val = vL2?.val {
+                l2Val = val
+            }
+            
+            var val = l1Val + l2Val + sign
+            sign = val / 10
+            val %= 10
+            
+            let node = ListNode.init(val)
+            res.next = node
+            res = node
+            
+            if vL1 != nil {
+                vL1 = vL1?.next
+            }
+            
+            if vL2 != nil {
+                vL2 = vL2?.next
+            }
+        }
+        
+        return resNode.next
+    }
+    
+    //MARK: - 删除倒数第n个节点
+    func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
+        if n == 0 {
+            return head
+        }
+        
+        var fast = head,slow = head
+        for _ in 0..<n {
+            fast = fast?.next
+        }
+        
+        if fast == nil {
+            return head?.next
+        }
+        
+        while fast?.next != nil {
+            fast = fast?.next
+            slow = slow?.next
+        }
+        
+        slow?.next = slow?.next?.next
+        
+        return head
+    }
+    
+    //MARK: - 两两交换链表中的节点
+    func swapPairs(_ head: ListNode?) -> ListNode? {
+        if head == nil || head?.next == nil {
+            return head
+        }
+        
+        let next = head?.next
+        head?.next = swapPairs(next?.next)
+        next?.next = head
+        return next
+    }
+    //MARK: - 旋转链表
+    func rotateRight(_ head: ListNode?, _ k: Int) -> ListNode? {
+        if k == 0 {
+            return head
+        }
+        
+        if head == nil {
+            return nil
+        }
+        
+        var vHead = head
+        var lastNode : ListNode?
+        var lastLessOneNode : ListNode?
+        var tempHead = head
+        
+        var num = 0
+        var tempCalculateHead = head
+        while tempCalculateHead != nil {
+            num += 1
+            tempCalculateHead = tempCalculateHead?.next
+        }
+        
+        let step = k % num
+        
+        for _ in 0..<step {
+            
+            while vHead != nil {
+                if vHead?.next == nil {
+                    lastNode = vHead
+                }
+                
+                if vHead?.next?.next == nil && vHead?.next != nil {
+                    lastLessOneNode = vHead
+                }
+                
+                vHead = vHead?.next
+            }
+            
+            if lastNode === tempHead {
+                return tempHead
+            }
+            
+            lastNode?.next = tempHead
+            tempHead = lastNode
+            vHead = lastNode
+            lastLessOneNode?.next = nil
+        }
+        
+        return tempHead
+    }
+    
+    //MARK: -  删除重复节点
+    func deleteDuplicates(_ head: ListNode?) -> ListNode? {
+        if head == nil || head?.next == nil {
+            return head
+        }
+
+        var dict = [Int:Int]()
+        
+        var tempHead = head
+        
+        while tempHead != nil {
+            if let count = dict[tempHead!.val] {
+                let nCount = count + 1
+                dict[tempHead!.val] = nCount
+            } else {
+                dict[tempHead!.val] = 1
+            }
+            
+            tempHead = tempHead?.next
+        }
+        tempHead = head
+        var tempNode : ListNode? = ListNode.init(-1)
+        let res = tempNode
+        
+        while tempHead != nil {
+            var count = 0
+            if let num = dict[tempHead!.val] {
+                count = num
+            }
+            
+            if count == 1 {
+                tempNode?.next = ListNode.init(tempHead!.val)
+                tempNode = tempNode?.next
+            }
+            tempHead = tempHead?.next
+        }
+        
+        return res?.next
+    }
+    
+    /*
+     给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。
+
+     你应当保留两个分区中每个节点的初始相对位置。
+     */
+    //MARK: - 86. 分隔链表
+    func partition(_ head: ListNode?, _ x: Int) -> ListNode? {
+        var lowNode = ListNode.init(-1)
+        var upNode = ListNode.init(-1)
+        let tempUpNode = upNode
+        
+        let resNode = lowNode
+        var tempNode = head
+        
+        while tempNode != nil {
+            
+            let val = tempNode!.val
+            
+            if val < x {
+                let node = ListNode.init(val)
+                lowNode.next = node
+                lowNode = node
+            } else {
+                let node = ListNode.init(val)
+                upNode.next = node
+                upNode = node
+            }
+            
+            tempNode = tempNode?.next
+        }
+        
+        lowNode.next = tempUpNode.next
+        
+        return resNode.next
+    }
+    
+    /*
+     反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。
+
+     说明:
+     1 ≤ m ≤ n ≤ 链表长度。
+     */
+    //MARK: - 92. 反转链表 II
+    func reverseBetween(_ head: ListNode?, _ m: Int, _ n: Int) -> ListNode? {
+        let dummy = ListNode.init(0)
+        dummy.next = head
+        var pre : ListNode = dummy
+        for _ in 1..<m {
+            pre = pre.next!
+        }
+        
+        let tempHead = pre.next
+        for _ in m..<n {
+            let next = tempHead?.next
+            tempHead?.next = next?.next
+            next?.next = pre.next
+            pre.next = next
+        }
+        return dummy.next
     }
 }
