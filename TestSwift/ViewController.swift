@@ -13,6 +13,7 @@ import UIKit
 class ViewController: UIViewController {
     var _list : List! = List.init()
     var _math = Math.init()
+    var _swordFingerOffer = SwordFingerOffer.init()
     
 
     override func viewDidLoad() {
@@ -82,6 +83,7 @@ class ViewController: UIViewController {
         ArraySort.init().countSort(&countintSort)
         
         let _ = SwordFingerOffer.init().findContinuousSequence(9)
+        let _ = _swordFingerOffer.twoSum([2,7,11,15], 9)
         
         let _ = Search.BinarySearchRecursive([1, 10, 100, 1000], 9, 0, 3)
         let _ = Search.BinarySearchNormalHasRepeatNum([1, 10, 10, 100, 1000], 10)

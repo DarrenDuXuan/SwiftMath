@@ -614,4 +614,108 @@ class SwordFingerOffer: NSObject {
         
         return translateNum(num/10) + translateNum(num/100)
     }
+    
+    //MARK: - 剑指 Offer 03. 数组中重复的数字
+    func findRepeatNumber(_ nums: [Int]) -> Int {
+        var hash = [Int:Int]()
+        
+        for num in nums {
+            if hash[num] != nil {
+                return num
+            }
+            
+            hash[num] = num
+        }
+        
+        return -1
+    }
+    
+    func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
+        if root == nil {
+            return nil
+        }
+        
+        if root == p || root == q {
+            return root
+        }
+        
+        let left = lowestCommonAncestor(root?.left, p, q)
+        let right = lowestCommonAncestor(root?.right, p, q)
+        
+        if left != nil && right != nil {
+            return root
+        }
+        
+        if left != nil {
+            return left
+        }
+        
+        if right != nil {
+            return right
+        }
+        
+        return nil
+    }
+    
+    //MARK: - 剑指 Offer 39. 数组中出现次数超过一半的数字
+    func majorityElement(_ nums: [Int]) -> Int {
+        // 排序，数字必定在中间
+        var vNUms = nums
+        vNUms.sort()
+        return vNUms[vNUms.count/2]
+        
+        // Hash
+        if nums.count == 0 {
+            return -1
+        }
+        
+        if nums.count == 1 {
+            return nums[0]
+        }
+        
+        let count = nums.count/2
+        var hash = [Int:Int]()
+        for num in nums {
+            if hash[num] == nil {
+                hash[num] = 1
+            } else {
+                var tCount : Int! = hash[num]
+                if tCount >= count {
+                    return num
+                }
+                tCount += 1
+                hash[num] = tCount
+            }
+        }
+        
+        return -1
+    }
+    
+    func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+//        var left = 0,
+//        right = nums.count-1
+//        while left < right {
+//            if nums[left] + nums[right] == target {
+//                return [nums[left], nums[right]]
+//            } else if nums[left] + nums[right] > target {
+//                right -= 1
+//            } else {
+//                left += 1
+//            }
+//        }
+//
+//        return []
+        
+        var hash = [Int:Int]()
+        for num in nums {
+            let found = target - num
+            if hash[found] != nil {
+                return [found, num]
+            } else {
+                hash[num] = num
+            }
+        }
+        
+        return []
+    }
 }
