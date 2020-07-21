@@ -68,6 +68,7 @@ class ViewController: UIViewController {
         var tList = [1]
         let _ = _math.sortColors(&tList)
         let _ = Math.subsetsWithDup([1,2,2])
+        let _ = Math.minimumTotal([[-1],[2,3],[1,-1,-3]])
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)
@@ -84,6 +85,7 @@ class ViewController: UIViewController {
         
         let _ = SwordFingerOffer.init().findContinuousSequence(9)
         let _ = _swordFingerOffer.twoSum([2,7,11,15], 9)
+        let _ = _swordFingerOffer.constructArr([1, 2, 3, 4, 5])
         
         let _ = Search.BinarySearchRecursive([1, 10, 100, 1000], 9, 0, 3)
         let _ = Search.BinarySearchNormalHasRepeatNum([1, 10, 10, 100, 1000], 10)

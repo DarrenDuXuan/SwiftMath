@@ -718,4 +718,96 @@ class SwordFingerOffer: NSObject {
         
         return []
     }
+    
+    //MARK: - 剑指 Offer 21. 调整数组顺序使奇数位于偶数前面
+    func exchange(_ nums: [Int]) -> [Int] {
+        // 常规，多余空间
+        var vNums1 = [Int]()
+        var nums1 = [Int]()
+        for num in nums {
+            if num%2 != 0 {
+                vNums1.append(num)
+            } else {
+                nums1.append(num)
+            }
+        }
+
+        vNums1.append(contentsOf: nums1)
+        return vNums1
+        
+        // 双指针前后查找
+        var left = 0,
+        right = nums.count-1,
+        vNums = nums
+        while left < right {
+            while left < right && vNums[left]%2 != 0 {
+                left += 1
+            }
+            
+            while left < right && vNums[right]%2 == 0 {
+                right -= 1
+            }
+            
+            if left < right {
+                vNums.swapAt(left, right)
+            }
+        }
+        
+        return vNums
+    }
+    
+    //MARK: - 第一个只出现一次的字符
+    func firstUniqChar(_ s: String) -> Character {
+        var hash = [Character:Int]()
+        for str in s {
+            if hash[str] == nil {
+                hash[str] = 1
+            } else {
+                var count = hash[str]!
+                count += 1
+                hash[str] = count
+            }
+        }
+        
+        for str in s {
+            if hash[str] == 1 {
+                return str
+            }
+        }
+        
+        return " "
+    }
+    
+    //MARK: - 剑指 Offer 18. 删除链表的节点
+    func deleteNode(_ head: ListNode?, _ val: Int) -> ListNode? {
+        if head == nil {
+            return nil
+        }
+        
+        if head?.val == val {
+            return head?.next
+        }
+        
+        head?.next = deleteNode(head?.next, val)
+        return head
+    }
+    
+    //MARK: - 剑指 Offer 66. 构建乘积数组
+    func constructArr(_ a: [Int]) -> [Int] {
+        var nums = [Int]()
+        var res = 1
+        for num in a {
+            res *= num
+        }
+        
+        for num in a {
+            if num == 0 {
+                nums.append(0)
+            } else {
+                nums.append(res/num)
+            }
+        }
+        
+        return nums
+    }
 }

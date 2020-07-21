@@ -855,6 +855,22 @@ class Tree: NSObject {
         }
         return head
     }
+    
+    //MARK: - 剑指 Offer 65. 不用加减乘除做加法
+    func add(_ a: Int, _ b: Int) -> Int {
+        if b == 0 {
+            return a
+        }
+        
+        if a == 0 {
+            return b
+        }
+        
+        let c = (1&b)<<1
+        let d = a^b
+        
+        return add(d, c)
+    }
 }
 
     

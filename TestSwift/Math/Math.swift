@@ -1833,7 +1833,37 @@ class Math: NSObject {
         return res
     }
     
-    
+    class func minimumTotal(_ triangle: [[Int]]) -> Int {
+        var total = 0
+        if (triangle.isEmpty) {
+            return 0
+        }
+        
+        var tempIndex = 0
+        
+        for (_, list) in triangle.enumerated() {
+            var tempNum = -1
+            
+            for i in tempIndex...tempIndex+1 {
+                if i < list.count {
+                    let num = list[i]
+                    if (tempNum == -1) {
+                        tempNum = num
+                        tempIndex = i
+                    } else {
+                        if tempNum > num {
+                            tempNum = num
+                            tempIndex = i
+                        }
+                    }
+                }
+            }
+            
+            total += tempNum
+        }
+        
+        return total
+    }
 }
 
 
