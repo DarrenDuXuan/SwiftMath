@@ -94,7 +94,55 @@ class ViewController: UIViewController {
         let node = Tree.init().deserialize(string)
         let _ = Tree.init().serialize(node)
         let _ = Tree.init().recoverFromPreorder("1-2--3--4-5--6--7")
-        
+        let _ = reverseString("123456")
     }
+    
+    func reverseString(_ string: String) -> String {
+        
+        var tempS = ""
+
+        for char in string.enumerated().reversed() {
+            tempS.append(char.element)
+        }
+        return tempS
+    }
+    
+    func quickSort(_ list: [Int]) -> [Int] {
+        var tempList = list
+        
+        return quickSortHelp(&tempList, 0, list.count-1)
+    }
+    
+    func quickSortHelp(_ list: inout [Int], _ first: Int, _ last: Int) -> [Int] {
+        
+        if first >= last {
+            return list
+        }
+        
+        let i = partition(&list, first, last)
+        
+        let _ = quickSortHelp(&list, first, i-1)
+        let _ = quickSortHelp(&list, i+1, last)
+        
+        return list
+    }
+    
+    func partition(_ list: inout [Int], _ first: Int, _ last: Int) -> Int {
+        let sign = list[last]
+        
+        var tempFirst = first
+        for i in first...last-1 {
+            let cur = list[i]
+            if cur > sign {
+                list.swapAt(i, tempFirst)
+                tempFirst += 1
+            }
+        }
+        
+        list.swapAt(tempFirst, last)
+        
+        return tempFirst
+    }
+    
 }
 

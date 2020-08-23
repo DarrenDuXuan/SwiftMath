@@ -338,6 +338,14 @@ class Tree: NSObject {
         _maxDepthDFS(root?.right, len + 1)
     }
     
+    func maxDepthDFS2(_ root: TreeNode?) -> Int {
+        if root == nil {
+            return 0
+        }
+        
+        return 1 + max(maxDepthDFS2(root?.left), maxDepthDFS2(root?.right))
+    }
+    
     /*
      538. 把二叉搜索树转换为累加树
      

@@ -68,10 +68,12 @@ class List: NSObject {
             root = next
         }
         return cur
+        
+        return overList(nil, head)
     }
        
     // MARK: - 递归反转一个单链表。
-    private func overList(_ pre:ListNode?, _ cur:ListNode?) -> ListNode? {
+    func overList(_ pre:ListNode?, _ cur:ListNode?) -> ListNode? {
         if (cur == nil) {
             return pre
         }
@@ -437,5 +439,35 @@ class List: NSObject {
             pre.next = next
         }
         return dummy.next
+    }
+    
+    /*
+     排序链表
+     */
+    func sortList(_ head: ListNode?) -> ListNode? {
+        var array = [Int]()
+        var tempHead = head
+        
+        while tempHead?.next != nil {
+            array.append(tempHead!.val)
+            tempHead = tempHead?.next
+        }
+        
+        array.sort()
+        var node : ListNode?
+        var firstNode : ListNode?
+
+        for val in array {
+            if node == nil {
+                node = ListNode(val)
+                firstNode = node
+            } else {
+                let tNode = ListNode(val)
+                node?.next = tNode
+                node = tNode
+            }
+        }
+        
+        return firstNode
     }
 }

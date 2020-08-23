@@ -634,6 +634,23 @@ class Math: NSObject {
         return res
     }
     
+    func maxArea2(_ height: [Int]) -> Int {
+        var res = 0
+        
+        for i in 0..<height.count-1 {
+            
+            for j in (i+1)..<height.count {
+                
+                let h = min(height[i], height[j])
+                
+                res = max(res, h * (j - i))
+            }
+            
+        }
+        
+        return res
+    }
+    
     /*
      15. 三数之和
      给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。
