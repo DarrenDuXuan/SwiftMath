@@ -59,15 +59,15 @@ class List: NSObject {
             return nil
         }
         
-        var cur : ListNode?
-        var root = head
-        while root != nil {
-            let next = root?.next
-            root?.next = cur
-            cur = root
-            root = next
+        var pre : ListNode?
+        var cur = head
+        while cur != nil {
+            let next = cur?.next
+            cur?.next = pre
+            pre = cur
+            cur = next
         }
-        return cur
+        return pre
         
         return overList(nil, head)
     }
@@ -129,7 +129,7 @@ class List: NSObject {
     /*
     141. 环形链表
     */
-    // MARK: - 环形链表
+    // MARK: - 是否环形链表
     func hasCycle(_ head: ListNode?) -> Bool {
         if (head == nil) {
             return false
@@ -146,6 +146,36 @@ class List: NSObject {
             slow = slow?.next
         }
         return true
+    }
+    
+//MARK: - 环形链表节点（若有环）
+    func cycle(_ head: ListNode?) -> ListNode? {
+        if head == nil {
+            return nil
+        }
+        
+        var fast = head, slow = head
+        
+        while fast != nil {
+            fast = fast?.next
+            slow = slow?.next?.next
+            if fast === slow {
+                break
+            }
+        }
+        
+        if fast == nil || fast?.next == nil {
+            return nil
+        }
+        
+        slow = head
+        
+        while slow != fast {
+            slow = slow?.next
+            fast = fast?.next
+        }
+        
+        return slow
     }
     
     /*

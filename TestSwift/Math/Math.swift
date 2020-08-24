@@ -98,7 +98,7 @@ class Math: NSObject {
         return num;
     }
 
-    
+    //MARK: -  股票的最大利润
     func maxProfit(_ prices: [Int]) -> Int {
         if (prices.isEmpty) {
             return 0
@@ -594,22 +594,32 @@ class Math: NSObject {
     }
     
     /*
-         斐波那契数列
+        斐波那契数列
+        0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233……
      */
-    func fib(_ n: Int) -> Int {
+    func fibonacci(_ n: Int) -> Int {
         if n == 0 || n == 1 {
             return n
         }
         var first = 0
-        var next = 1
+        var sec = 1
+        var third = 0
 
         for _ in 2...n {
-            first = first + next
-            next = first - next
-            first %= 1000000007
+            third = first + sec
+            first = sec
+            sec = third
         }
 
-        return first
+        return third
+    }
+    
+    func fibonacci2(_ n: Int) -> Int {
+        if n == 0 || n == 1 {
+            return n
+        }
+        
+        return fibonacci2(n - 1) + fibonacci2(n - 2)
     }
     
     /*
@@ -1880,6 +1890,61 @@ class Math: NSObject {
         }
         
         return total
+    }
+    
+    //MARK: - LeetCode 1133
+    class Solution {
+        func largestUniqueNumber(_ A: [Int]) -> Int {
+            var M:[Int:Int] = [Int:Int]()
+            var ans:Int = -1
+            for num in A
+            {
+                M[num,default:0] += 1
+            }
+            for (key,val) in M
+            {
+                if val == 1
+                {
+                     ans = max(ans,key)
+                }
+            }
+            return ans
+        }
+    }
+    
+    /*
+     179. 最大数
+     给定一组非负整数，重新排列它们的顺序使之组成一个最大的整数。
+
+     示例 1:
+
+     输入: [10,2]
+     输出: 210
+     示例 2:
+
+     输入: [3,30,34,5,9]
+     输出: 9534330
+     说明: 输出结果可能非常大，所以你需要返回一个字符串而不是整数。
+     */
+    class func largestNumber(_ nums: [Int]) -> String {
+//        let sorded = nums.map{ "\($0)" }.sorted{ $0+$1 > $1+$0 }
+//        if sorded[0].isEqual("0") { return "0" }
+//        return sorded.joined()
+        
+        var sorted = nums.map { (num) -> String in
+            return String(num)
+        }
+        
+        sorted = sorted.sorted { (s1, s2) -> Bool in
+            return s1 + s2 > s2 + s1
+        }
+        
+        if sorted[0].isEqual("0") {
+            return "0"
+        }
+        
+        let s1 = sorted.joined()
+        return s1
     }
 }
 

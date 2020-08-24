@@ -13,7 +13,7 @@
 		CD260F102488B48300F27839 /* ArraySort.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD260F0F2488B48300F27839 /* ArraySort.swift */; };
 		CD260F12248942EE00F27839 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD260F11248942EE00F27839 /* List.swift */; };
 		CD74E2E02476C9DB00C6C7A2 /* MinStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74E2DF2476C9DB00C6C7A2 /* MinStack.swift */; };
-		CD82873A24D6ED3E00F50920 /* LRU.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD82873924D6ED3E00F50920 /* LRU.swift */; };
+		CDA1B81924F394F700DADB99 /* LRUCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA1B81824F394F700DADB99 /* LRUCache.swift */; };
 		CDBDF277249B90450036739F /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBDF276249B90450036739F /* Node.swift */; };
 		CDCDC15A248CC7AB00985683 /* SwordFingerOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCDC159248CC7AB00985683 /* SwordFingerOffer.swift */; };
 		CDCDC15C248D391E00985683 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCDC15B248D391E00985683 /* Search.swift */; };
@@ -53,7 +53,7 @@
 		CD260F0F2488B48300F27839 /* ArraySort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArraySort.swift; sourceTree = "<group>"; };
 		CD260F11248942EE00F27839 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		CD74E2DF2476C9DB00C6C7A2 /* MinStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinStack.swift; sourceTree = "<group>"; };
-		CD82873924D6ED3E00F50920 /* LRU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRU.swift; sourceTree = "<group>"; };
+		CDA1B81824F394F700DADB99 /* LRUCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRUCache.swift; sourceTree = "<group>"; };
 		CDBDF276249B90450036739F /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		CDCDC159248CC7AB00985683 /* SwordFingerOffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwordFingerOffer.swift; sourceTree = "<group>"; };
 		CDCDC15B248D391E00985683 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 				CDCDC159248CC7AB00985683 /* SwordFingerOffer.swift */,
 				CDCDC15B248D391E00985683 /* Search.swift */,
 				CDBDF276249B90450036739F /* Node.swift */,
-				CD82873924D6ED3E00F50920 /* LRU.swift */,
+				CDA1B81824F394F700DADB99 /* LRUCache.swift */,
 			);
 			path = Math;
 			sourceTree = "<group>";
@@ -303,10 +303,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDA1B81924F394F700DADB99 /* LRUCache.swift in Sources */,
 				CDCDC15C248D391E00985683 /* Search.swift in Sources */,
 				CDD4EFF5246BEFA200D48782 /* ViewController.swift in Sources */,
 				CDD4F022246BEFCF00D48782 /* Tree.swift in Sources */,
-				CD82873A24D6ED3E00F50920 /* LRU.swift in Sources */,
 				CDD4EFF1246BEFA200D48782 /* AppDelegate.swift in Sources */,
 				CD260F12248942EE00F27839 /* List.swift in Sources */,
 				CDD4EFF3246BEFA200D48782 /* SceneDelegate.swift in Sources */,

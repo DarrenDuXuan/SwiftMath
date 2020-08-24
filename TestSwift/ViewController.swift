@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         let _ = _math.combinationSum([2,3,6,7], 7)
         let _ = _math.hammingDistance(1, 4)
         let _ = _math.numRepeatCount([1,1,2,4,3,4,1])
-        let _ = _math.fib(95)
+        let _ = _math.fibonacci(95)
         let _ = _math.maxArea([1,8,6,2,5,4,8,3,7])
         let _ = _math.threeSumClosest([-1,2,1,-4], 1)
         let _ = _math.fourSum([1,0,-1,0,-2,2], 0)
@@ -69,6 +69,7 @@ class ViewController: UIViewController {
         let _ = _math.sortColors(&tList)
         let _ = Math.subsetsWithDup([1,2,2])
         let _ = Math.minimumTotal([[-1],[2,3],[1,-1,-3]])
+        let _ = Math.largestNumber([1, 10, 30, 54, 60])
         
         var list = [4, 2, 5, 9]
         ArraySort.init().mpSrort(&list)
@@ -106,43 +107,5 @@ class ViewController: UIViewController {
         }
         return tempS
     }
-    
-    func quickSort(_ list: [Int]) -> [Int] {
-        var tempList = list
-        
-        return quickSortHelp(&tempList, 0, list.count-1)
-    }
-    
-    func quickSortHelp(_ list: inout [Int], _ first: Int, _ last: Int) -> [Int] {
-        
-        if first >= last {
-            return list
-        }
-        
-        let i = partition(&list, first, last)
-        
-        let _ = quickSortHelp(&list, first, i-1)
-        let _ = quickSortHelp(&list, i+1, last)
-        
-        return list
-    }
-    
-    func partition(_ list: inout [Int], _ first: Int, _ last: Int) -> Int {
-        let sign = list[last]
-        
-        var tempFirst = first
-        for i in first...last-1 {
-            let cur = list[i]
-            if cur > sign {
-                list.swapAt(i, tempFirst)
-                tempFirst += 1
-            }
-        }
-        
-        list.swapAt(tempFirst, last)
-        
-        return tempFirst
-    }
-    
 }
 
