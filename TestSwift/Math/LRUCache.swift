@@ -82,7 +82,7 @@ class LRUCache: NSObject {
             moveNodeToFirst(node)
         } else {
             if count == capacity {
-                removeLast()
+                let _ = removeLast()
             } else {
                 count += 1
             }
@@ -106,14 +106,10 @@ class LRUCache: NSObject {
         dict[node.key] = node
     }
     
-    func removeLast() {
-        if count <= 0 {
-            return
-        }
-        
-        let tempNode = tail.prev
-        tempNode?.prev?.next = tail
-        tail.prev = tempNode?.prev
-        dict[tempNode!.key] = nil
+    func removeLast() -> LRUNode? {
+        let tempNode = tail.prev!
+        removeLRUNode(tempNode)
+        dict[tempNode.key] = nil
+        return tempNode
     }
 }
