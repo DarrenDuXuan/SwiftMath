@@ -414,7 +414,7 @@ class SwordFingerOffer: NSObject {
         var tn = n
         while tn > 0 {
             num += 1
-            tn &= tn
+            tn &= (tn - 1)
         }
         return num
     }
@@ -809,5 +809,52 @@ class SwordFingerOffer: NSObject {
         }
         
         return nums
+    }
+    
+    //MARK: - 剑指 Offer 53 - I. 在排序数组中查找数字 I
+    func search(_ nums: [Int], _ target: Int) -> Int {
+//        var count = 0
+//        for num in nums {
+//            if num == target {
+//                count += 1
+//            }
+//        }
+//
+//        return count
+        
+        var left = 0, right = nums.count - 1
+        var count = 0
+        var mid = (right - left) / 2
+        
+        while left <= right {
+            mid = left + (right - left) / 2
+            
+            if nums[mid] == target {
+                count += 1
+                break
+            }
+            
+            if nums[mid] > target {
+                right = mid - 1
+            } else {
+                left = mid + 1
+            }
+        }
+        
+        for i in (0..<mid).reversed() {
+            if nums[i] != target {
+                break
+            }
+            count += 1
+        }
+        
+        for i in mid+1..<right {
+            if nums[i] != target {
+                break
+            }
+            count += 1
+        }
+        
+        return count
     }
 }

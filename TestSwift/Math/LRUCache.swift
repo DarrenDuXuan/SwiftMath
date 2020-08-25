@@ -87,8 +87,8 @@ class LRUCache: NSObject {
                 count += 1
             }
             
-            let node = LRUNode(value, key)
-            moveNodeToFirst(node)
+            let tempNode = LRUNode(value, key)
+            moveNodeToFirst(tempNode)
         }
     }
     
